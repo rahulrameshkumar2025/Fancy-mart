@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fancy Mart · Wholesale Gifts &amp; Accessories</title>
+  <meta name="description" content="Wholesale keychains, kawaii toys, hair clips, earrings, LED candles, kitchen and car accessories. Bulk packs, enquire on WhatsApp.">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Intro loader -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="pl-inner">
+      <span class="pl-mark">✦</span>
+      <span class="pl-name" data-store="name">Fancy Mart</span>
+      <span class="pl-bar"><i id="plBar"></i></span>
+    </div>
+  </div>
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"><span id="cursorLabel"></span></div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="#top" class="logo" aria-label="Home">
+      <span class="logo-mark">✦</span>
+      <span class="logo-text" data-store="name">Fancy Mart</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#featured">Bestsellers</a>
+      <a href="#categories">Categories</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#how">How to order</a>
+      <a href="#visit">Visit us</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="enquiry-btn magnetic" id="openDrawer" aria-label="Open enquiry list">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
+        <span class="hide-sm">Enquiry</span>
+        <span class="badge" id="cartCount" aria-live="polite">0</span>
+      </button>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="blob b3"></div>
+
+      <div class="hero-copy" id="heroCopy">
+        <p class="eyebrow hero-in">Wholesale · Bulk packs · Fast dispatch</p>
+        <h1 class="hero-title">
+          <span class="line"><span class="line-inner">Cute stuff that</span></span>
+          <span class="line"><span class="line-inner"><span class="swap"><span id="swapWord">sells out</span></span></span></span>
+          <span class="line"><span class="line-inner">in every shop.</span></span>
+        </h1>
+        <p class="lead hero-in">Character keychains, kawaii toys, hair clips, earrings, LED candles, kitchen and car accessories, all stocked in bulk for retailers and gift shops.</p>
+        <div class="cta-row hero-in">
+          <a href="#catalogue" class="btn btn-primary magnetic" data-cursor="Shop">Browse catalogue</a>
+          <a href="#" class="btn btn-ghost magnetic" data-wa="Hi! I'd like the latest wholesale price list." data-cursor="Chat">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></svg>
+            Get price list
+          </a>
+        </div>
+        <a href="#featured" class="scroll-cue hero-in" aria-label="Scroll to bestsellers">
+          <span class="mouse"><i></i></span> Scroll to explore
+        </a>
+      </div>
+
+      <div class="hero-stage" id="heroStage" aria-hidden="true">
+        <div class="float-card fc1" data-depth="1.6"><div class="float-inner"><img src="images/keychain-unicorn.jpg" alt=""></div></div>
+        <div class="float-card fc2" data-depth="0.9"><div class="float-inner"><img src="images/toy-kitty-figure.jpg" alt=""></div></div>
+        <div class="float-card fc3" data-depth="1.3"><div class="float-inner"><img src="images/keychain-panda.jpg" alt=""></div></div>
+        <div class="float-card fc4" data-depth="2.1"><div class="float-inner"><img src="images/hair-peacock.jpg" alt=""></div></div>
+        <span class="sparkle s1">✦</span>
+        <span class="sparkle s2">✦</span>
+        <span class="sparkle s3">✧</span>
+        <span class="sticker" id="sticker">Bulk<br>deals!</span>
+      </div>
+    </section>
+
+    <!-- Why order from us -->
+    <section class="perks" aria-label="Why order from us">
+      <ul>
+        <li class="perk">
+          <span class="perk-icon" style="--c: var(--pink)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span>
+          <div><strong>Bulk packs</strong><span>24, 48 &amp; 50 pcs lots</span></div>
+        </li>
+        <li class="perk">
+          <span class="perk-icon" style="--c: var(--lilac)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9-9-9Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
+          <div><strong>Wholesale prices</strong><span>Better rates on more packs</span></div>
+        </li>
+        <li class="perk">
+          <span class="perk-icon" style="--c: var(--wa)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5.1A8 8 0 1 1 21 12Z"/></svg></span>
+          <div><strong>Order on WhatsApp</strong><span>Quick replies, no sign-up</span></div>
+        </li>
+        <li class="perk">
+          <span class="perk-icon" style="--c: var(--sky)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></span>
+          <div><strong>Pickup or dispatch</strong><span>Collect in store or we ship</span></div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats" aria-label="At a glance">
+      <div class="stat reveal"><b data-count="7">7</b><span>product ranges</span></div>
+      <div class="stat reveal"><b data-count="22">22</b><span>bestselling lines</span></div>
+      <div class="stat reveal"><b data-count="50">50</b><span>pcs per keychain pack</span></div>
+      <div class="stat reveal"><b data-count="48">48</b><span>pcs per clip tray</span></div>
+    </section>
+
+    <!-- Bestsellers: pinned horizontal scroll -->
+    <section class="featured" id="featured">
+      <div class="featured-pin" id="featuredPin">
+        <div class="featured-intro">
+          <p class="eyebrow">Bestsellers</p>
+          <h2 class="split-head">Flying off our shelves this week</h2>
+          <p class="sub">Shop owners keep re-ordering these. Add a few packs to your list.</p>
+          <div class="featured-progress" aria-hidden="true"><i id="featuredBar"></i></div>
+        </div>
+        <div class="featured-viewport">
+          <div class="featured-track" id="featuredTrack"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="section" id="categories">
+      <div class="section-head reveal">
+        <p class="eyebrow">Shop by range</p>
+        <h2>What's on our shelves</h2>
+      </div>
+      <div class="cat-grid" id="catGrid"></div>
+    </section>
+
+    <!-- Catalogue -->
+    <section class="section section-tint" id="catalogue">
+      <div class="section-head reveal">
+        <p class="eyebrow">Catalogue</p>
+        <h2>Pick your packs</h2>
+        <p class="sub">Tap <b>+ Add</b> on anything you like, then send the whole list to us on WhatsApp for prices and stock.</p>
+      </div>
+
+      <div class="toolbar" id="toolbar">
+        <div class="chips" id="chips" role="tablist" aria-label="Filter by category"></div>
+        <div class="toolbar-right">
+          <span class="result-count" id="resultCount" aria-live="polite"></span>
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="search" placeholder="Search panda, clips, candle…" aria-label="Search products">
+          </label>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+      <div class="empty" id="empty" hidden>
+        <p>Nothing matches that yet. Ask us on WhatsApp, we probably have it in the shop!</p>
+        <button class="btn btn-ghost" id="resetFilters">Show everything</button>
+      </div>
+    </section>
+
+    <!-- How to order -->
+    <section class="section" id="how">
+      <div class="section-head reveal">
+        <p class="eyebrow">Simple ordering</p>
+        <h2>Three steps to a full shelf</h2>
+      </div>
+      <div class="steps-wrap">
+        <div class="steps-line" aria-hidden="true"><i id="stepsLine"></i></div>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num">1</span>
+            <h3>Pick your items</h3>
+            <p>Add the packs you want to your enquiry list and choose how many of each.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">2</span>
+            <h3>Send on WhatsApp</h3>
+            <p>One tap sends the full list to us. We reply with wholesale prices and live stock.</p>
+          </li>
+          <li class="step">
+            <span class="step-num">3</span>
+            <h3>Pick up or ship</h3>
+            <p>Collect from the shop or we pack and dispatch to you.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Visit -->
+    <section class="section visit" id="visit">
+      <div class="visit-card reveal">
+        <div>
+          <p class="eyebrow">Visit the shop</p>
+          <h2>Come see everything in person</h2>
+          <p class="sub">There's far more in store than we can photograph, and new designs arrive every week.</p>
+          <dl class="info">
+            <div><dt>Address</dt><dd data-store="address">Shop address goes here</dd></div>
+            <div><dt>Hours</dt><dd data-store="hours">Mon–Sat · 10:00 AM – 9:00 PM</dd></div>
+            <div><dt>Phone</dt><dd><a data-store="phone" href="#">+91 00000 00000</a></dd></div>
+          </dl>
+          <a href="#" class="btn btn-primary magnetic" data-wa="Hi! I'd like to visit the shop. Can you share the location?">Chat on WhatsApp</a>
+        </div>
+        <div class="visit-collage" aria-hidden="true">
+          <img src="images/earrings-display.jpg" alt="" data-speed="-30">
+          <img src="images/hair-anmor.jpg" alt="" data-speed="40">
+          <img src="images/decor-lotus-candle.jpg" alt="" data-speed="-60">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer-big" data-store="name">Fancy Mart</p>
+    <p>Wholesale gifts, toys &amp; accessories</p>
+    <p class="muted">Product photos are of actual stock. Designs and colours vary by batch.</p>
+  </footer>
+
+  <!-- Floating actions -->
+  <button class="enquiry-pill" id="enquiryPill" hidden>
+    <span>Send enquiry</span><b id="pillCount">0</b>
+  </button>
+  <a href="#" class="wa-float" data-wa="Hi! I have a wholesale enquiry." aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></svg>
+  </a>
+
+  <!-- Enquiry drawer -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="drawer" aria-label="Enquiry list" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>Your enquiry list</h3>
+      <button class="icon-btn" id="closeDrawer" aria-label="Close">✕</button>
+    </div>
+    <ul class="drawer-list" id="drawerList" data-lenis-prevent></ul>
+    <div class="drawer-empty" id="drawerEmpty">
+      <p>Nothing added yet.</p>
+      <button class="btn btn-ghost" id="drawerBrowse">Browse catalogue</button>
+    </div>
+    <div class="drawer-foot">
+      <p class="drawer-total" id="drawerTotal"></p>
+      <button class="btn btn-primary btn-block" id="sendEnquiry" disabled>Send list on WhatsApp</button>
+      <button class="link-btn" id="clearList">Clear list</button>
+    </div>
+  </aside>
+
+  <!-- Quick view -->
+  <div class="qv" id="qv" hidden role="dialog" aria-modal="true" aria-labelledby="qvTitle">
+    <div class="qv-panel" id="qvPanel" data-lenis-prevent>
+      <button class="icon-btn qv-close" id="qvClose" aria-label="Close">✕</button>
+      <div class="qv-media"><img id="qvImg" src="" alt=""></div>
+      <div class="qv-info">
+        <span class="card-cat" id="qvCat"></span>
+        <h3 id="qvTitle"></h3>
+        <p id="qvDesc"></p>
+        <span class="pack" id="qvPack"></span>
+        <div class="qv-qty">
+          <span>Packs</span>
+          <div class="qty">
+            <button id="qvDec" aria-label="Fewer packs">−</button>
+            <span id="qvQty">1</span>
+            <button id="qvInc" aria-label="More packs">+</button>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" id="qvAdd">Add to enquiry</button>
+        <a href="#" class="btn btn-ghost btn-block" id="qvAsk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></svg>
+          Ask about this item
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
