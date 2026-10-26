@@ -539,7 +539,7 @@ if (!motion) {
     gsap.timeline()
       .to(word, { yPercent: -110, opacity: 0, duration: 0.35, ease: "power2.in" })
       .call(() => { wi = (wi + 1) % words.length; word.textContent = words[wi]; })
-      .fromTo(word, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)" });
+      .fromTo(word, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)", clearProps: "transform" });
   }, 2800);
 
   /* scroll progress */

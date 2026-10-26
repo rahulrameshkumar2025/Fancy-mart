@@ -168,17 +168,19 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; letter-sp
 .hero-title { font-size: clamp(42px, 6.4vw, 80px); font-weight: 700; }
 .line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
 .line-inner { display: block; }
-.swap {
-  display: inline-block; position: relative;
-  background: linear-gradient(120deg, var(--pink), var(--lilac) 50%, var(--sky));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-}
+.swap { display: inline-block; position: relative; isolation: isolate; }
 .swap::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: .06em; height: .14em; border-radius: 1em;
   background: var(--sun); z-index: -1; opacity: .7;
 }
-#swapWord { display: inline-block; }
-#swapWord .ch { display: inline-block; background: inherit; -webkit-background-clip: text; background-clip: text; }
+/* Gradient lives on the moving element itself: mobile Chrome drops background-clip:text
+   from a parent once a transformed child is promoted to its own layer. */
+#swapWord {
+  display: inline-block; white-space: nowrap;
+  background: linear-gradient(120deg, var(--pink), var(--lilac) 50%, var(--sky));
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
 .lead { font-size: clamp(17px, 1.6vw, 19px); color: var(--ink-soft); max-width: 34em; margin: 22px 0 30px; }
 .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
 .scroll-cue {
