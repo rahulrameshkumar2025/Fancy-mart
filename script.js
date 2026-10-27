@@ -5,8 +5,8 @@
    ========================================================= */
 const STORE = {
   name: "Fancy Mart",
-  whatsapp: "",
-  phone: "+91 00000 00000",
+  whatsapp: "916382707034",
+  phone: "+91 63827 07034",
   address: "Shop address goes here",
   hours: "Mon–Sat · 10:00 AM – 9:00 PM",
 };
