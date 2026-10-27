@@ -19,6 +19,8 @@ const CATEGORIES = [
   { id: "decor",     label: "LED Décor",   color: "#1fa88e", cover: "images/decor-lotus-candle.jpg" },
   { id: "kitchen",   label: "Kitchen",     color: "#2f8fe0", cover: "images/kitchen-knife-set.jpg" },
   { id: "car",       label: "Car Care",    color: "#2a1838", cover: "images/car-fragrance.jpg" },
+  { id: "bottles",   label: "Bottles & Flasks", color: "#1f6fb2", cover: "images/bottle-printed-mini.jpg" },
+  { id: "christmas", label: "Christmas",   color: "#c0262d", cover: "images/xmas-snowman.jpg" },
 ];
 
 const PRODUCTS = [
@@ -50,9 +52,22 @@ const PRODUCTS = [
   { id: "kit-grinder", cat: "kitchen", name: "Nima Electric Grinder NM-8300",  img: "images/kitchen-grinder.jpg",      pack: "Per piece",                      desc: "300W, stainless steel bowl, metal blade. Coffee, spices, dry masala." },
 
   { id: "car-heli",    cat: "car", name: "Solar Helicopter Car Fragrance",     img: "images/car-fragrance.jpg",        pack: "Per piece",   tag: "Spins in sun", desc: "Carlax solar-powered rotor spreads fragrance evenly. Cologne scent." },
+
+  { id: "bot-smart-bk",cat: "bottles", name: "Smart LED Flask 500 ml, Black",  img: "images/flask-smart-black.jpg",    pack: "Bulk carton", tag: "Smart",      desc: "Touch the lid to see drink temperature. 304 stainless steel, hot & cold, leak-proof." },
+  { id: "bot-smart-wh",cat: "bottles", name: "Smart LED Flask 500 ml, White",  img: "images/flask-smart-white.jpg",    pack: "Bulk carton",                    desc: "Touch the lid to see drink temperature. 304 stainless steel, hot & cold, leak-proof." },
+  { id: "bot-rope",    cat: "bottles", name: "Rope Bottle 500 ml",              img: "images/bottle-rope.jpg",          pack: "50 pcs carton", tag: "5 colours", desc: "Double-wall stainless steel with rope handle. Blue, black, rose gold, silver and gold." },
+  { id: "bot-floral",  cat: "bottles", name: "Plan Floral Mini Bottle 300 ml",  img: "images/bottle-plan-floral.jpg",   pack: "Bulk carton",                    desc: "Insulated mini bottle with steel cap and carry ring. Seven pastel and bold colours." },
+  { id: "bot-printed", cat: "bottles", name: "Printed Mini Bottle",             img: "images/bottle-printed-mini.jpg",  pack: "Bulk carton", tag: "In stock",   desc: "Insulated mini bottles in peacock, rose, butterfly and blue-porcelain prints." },
+
+  { id: "xm-snowman",  cat: "christmas", name: "LED Snowman (MAA 290 Z)",       img: "images/xmas-snowman.jpg",         pack: "300 pcs carton", tag: "Kids love", desc: "6\" glowing crystal snowman with knitted striped hat and scarf. Gift boxed." },
+  { id: "xm-star",     cat: "christmas", name: "Crystal Star Tree Lamp (MAA 290 G)", img: "images/xmas-crystal-star-tree.jpg", pack: "240 pcs carton", tag: "Festive", desc: "6\" LED crystal tree with star topper and warm glow. Gift boxed." },
+  { id: "xm-spiral",   cat: "christmas", name: "Spiral Crystal Tree (MAA 290 L)", img: "images/xmas-spiral-tree.jpg",     pack: "480 pcs carton",                 desc: "4\" ribbed crystal tree with warm LED and star. Compact gift-boxed piece." },
+  { id: "xm-fibre",    cat: "christmas", name: "Fibre-Optic Tree (MAA 290 M)",  img: "images/xmas-fibre-optic-tree.jpg", pack: "500 pcs carton",                desc: "5.5\" fibre-optic tree with star that glows in changing colours. Gift boxed." },
+  { id: "xm-acrylic",  cat: "christmas", name: "Colour-Change Tree 6\" (MAA6340-11)", img: "images/xmas-acrylic-tree.jpg", pack: "240 pcs carton",              desc: "Acrylic Christmas tree with colour-changing LED base. Gift boxed." },
+  { id: "xm-acrylic-l",cat: "christmas", name: "Colour-Change Tree 7.5\" (MAA6340-12)", img: "images/xmas-acrylic-tree-large.jpg", pack: "144 pcs carton", tag: "Large", desc: "Larger acrylic Christmas tree with colour-changing LED base. Gift boxed." },
 ];
 
-const FEATURED = ["kc-unicorn", "kc-anime", "toy-kitty", "hair-peacock", "kc-spidey", "dec-lotus", "car-heli", "kc-panda"];
+const FEATURED = ["xm-snowman", "kc-unicorn", "bot-smart-bk", "kc-anime", "toy-kitty", "xm-star", "hair-peacock", "kc-spidey", "dec-lotus", "bot-rope", "car-heli", "kc-panda"];
 
 /* ---------- setup ---------- */
 const $ = (s, el = document) => el.querySelector(s);
