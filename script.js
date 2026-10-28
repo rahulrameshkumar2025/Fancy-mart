@@ -43,7 +43,7 @@ const PRODUCTS = [
   { id: "toy-bunny",   cat: "toys", name: "Sleepy Bunny Squishy",            imgs: ["images/toy-bunny.jpg"],            pack: "Bulk carton", desc: "Soft-touch white bunny with flower detail. Individually packed." },
   { id: "toy-unicorn", cat: "toys", name: "Unicorn Night Light",             imgs: ["images/toy-unicorn-lamp.jpg"],     pack: "Bulk carton", desc: "Pink-and-white unicorn that lights up. Individually packed." },
 
-  { id: "hair-claw",   cat: "hair", name: "Assorted Claw Clip Tray",         imgs: ["images/hair-claw-mix.jpg", "images/hair-claw-zanzee.jpg", "images/hair-claw-basket.jpg"], pack: "48 pcs tray", desc: "Daisy, square, heart and classic claw clips in matte, clear and frosted finishes. Comes in a reusable basket." },
+  { id: "hair-claw",   cat: "hair", name: "Assorted Claw Clip Tray",         imgs: ["images/hair-claw-basket.jpg", "images/hair-claw-zanzee.jpg", "images/hair-claw-mix.jpg"], pack: "48 pcs tray", desc: "Daisy, square, heart and classic claw clips in matte, clear and frosted finishes. Comes in a reusable basket." },
   { id: "hair-peacock",cat: "hair", name: "Peacock Heart Clips",             imgs: ["images/hair-peacock.jpg"],         pack: "24 pcs box",  desc: "Gold-tone heart clips with painted peacock and swan art." },
   { id: "hair-pearl",  cat: "hair", name: "Pearl Flower Mini Clips",         imgs: ["images/hair-pearl.jpg"],           pack: "24 pcs box",  desc: "Black mini claws with pearl cluster and rhinestone trim." },
   { id: "hair-anmor",  cat: "hair", name: "Anmor Square Clips",              imgs: ["images/hair-anmor.jpg"],           pack: "24 pcs box",  desc: "Jelly-rim square clips in black and bright colours." },
@@ -275,7 +275,7 @@ function rotateWord() {
   setInterval(() => { if (!document.hidden && root.classList.contains("ready")) rotateWord(); }, 2600);
 }
 
-/* ---------- offer showcase ---------- */
+/* ---------- offer showcase: 3D coverflow ---------- */
 const showcase = $("#showcase"), slidesEl = $("#slides"), scBar = $("#scBar");
 function offerPrice(cat) {
   const list = PRODUCTS.filter(p => p.cat === cat && p.price);
@@ -285,8 +285,8 @@ function offerPrice(cat) {
   return `<div class="sc-price"><b>From ${inr(low)}<small>/pc</small></b>${best ? `<span>Up to ${best}% off</span>` : ""}</div>`;
 }
 slidesEl.innerHTML = OFFERS.map((o, i) => `
-  <article class="sc-slide" data-cat-go="${o.cat}" aria-roledescription="slide" aria-label="${i + 1} of ${OFFERS.length}: ${esc(o.title)}">
-    <img src="${o.img}" alt="" draggable="false" ${i ? 'loading="lazy"' : ""}>
+  <article class="sc-slide" data-i="${i}" aria-roledescription="slide" aria-label="${i + 1} of ${OFFERS.length}: ${esc(o.title)}">
+    <img src="${o.img}" alt="" draggable="false">
     <div class="sc-copy">
       <span class="sc-badge">${esc(o.badge)}</span>
       <h2>${esc(o.title)}</h2>
@@ -294,9 +294,11 @@ slidesEl.innerHTML = OFFERS.map((o, i) => `
       ${offerPrice(o.cat)}
       <span class="sc-cta">Shop now ${ARROW}</span>
     </div>
+    <span class="sc-dim"></span>
   </article>`).join("");
 scBar.innerHTML = OFFERS.map(o => `<button aria-label="Show ${esc(o.title)}"><i></i></button>`).join("");
 const scSlides = $$(".sc-slide", slidesEl), scBtns = $$("button", scBar);
+const SC_MAX_VISIBLE = 2;
 let scIndex = 0;
 
 // Autoplay runs on a timer, not on the progress-bar animation, so it stays steady
@@ -323,11 +325,21 @@ function resumeSlides() {
   schedule(scLeft);
 }
 
+// Each card sits at its distance from the front card, wrapping around both ends.
 function showSlide(i) {
-  scIndex = (i + scSlides.length) % scSlides.length;
+  const n = scSlides.length;
+  scIndex = ((i % n) + n) % n;
   scSlides.forEach((s, k) => {
-    s.classList.toggle("active", k === scIndex);
-    s.setAttribute("aria-hidden", k !== scIndex);
+    let rel = k - scIndex;
+    if (rel > n / 2) rel -= n;
+    if (rel < -n / 2) rel += n;
+    const ax = Math.abs(rel);
+    s.style.setProperty("--rel", rel);
+    s.style.setProperty("--ax", ax);
+    s.style.zIndex = 10 - ax;
+    s.classList.toggle("active", rel === 0);
+    s.classList.toggle("far", ax > SC_MAX_VISIBLE);
+    s.setAttribute("aria-hidden", rel !== 0);
   });
   // re-adding the class restarts the progress animation from zero
   scBtns.forEach(b => b.classList.remove("active"));
@@ -337,6 +349,14 @@ function showSlide(i) {
   schedule(SLIDE_MS);
 }
 
+// Front card opens its range; a side card comes to the front instead.
+slidesEl.addEventListener("click", e => {
+  const card = e.target.closest(".sc-slide");
+  if (!card) return;
+  const i = +card.dataset.i;
+  if (i === scIndex) setCategory(OFFERS[i].cat, true);
+  else showSlide(i);
+});
 scBar.addEventListener("click", e => {
   const i = scBtns.indexOf(e.target.closest("button"));
   if (i >= 0) showSlide(i);
@@ -348,6 +368,10 @@ showcase.addEventListener("mouseleave", resumeSlides);
 showcase.addEventListener("focusin", pauseSlides);
 showcase.addEventListener("focusout", resumeSlides);
 document.addEventListener("visibilitychange", () => document.hidden ? pauseSlides() : resumeSlides());
+showcase.addEventListener("keydown", e => {
+  if (e.key === "ArrowRight") { e.preventDefault(); showSlide(scIndex + 1); }
+  if (e.key === "ArrowLeft") { e.preventDefault(); showSlide(scIndex - 1); }
+});
 
 // swipe left or right on phones
 let swipe = null;

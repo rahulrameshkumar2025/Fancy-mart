@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=13">
+  <link rel="stylesheet" href="styles.css?v=15">
   <script>
     // Use the saved theme, otherwise follow the device setting.
     try {
@@ -57,7 +57,7 @@
   </div>
 
   <!-- Announcement bar -->
-  <div class="announce" aria-label="Announcements">
+  <div class="announce motion-ok" aria-label="Announcements">
     <div class="announce-track" id="announce">
       <span>🪔 <b>Deepavali offers coming soon</b> · stock up early for the festive rush</span>
       <span>🎁 <b>Big discounts</b> on festive décor, lamps &amp; gifts</span>
@@ -123,10 +123,8 @@
         </div>
       </div>
 
-      <div class="showcase" id="showcase" aria-roledescription="carousel" aria-label="Current offers">
-        <div class="sc-back sc-back-1" aria-hidden="true"></div>
-        <div class="sc-back sc-back-2" aria-hidden="true"></div>
-        <div class="sc-frame" id="slides"></div>
+      <div class="showcase motion-ok" id="showcase" tabindex="0" aria-roledescription="carousel" aria-label="Current offers">
+        <div class="cover" id="slides"></div>
         <div class="sc-controls">
           <button class="sc-btn" id="scPrev" aria-label="Previous offer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
           <div class="sc-bar" id="scBar"></div>
@@ -136,7 +134,7 @@
     </section>
 
     <!-- Why order from us -->
-    <section class="ticker" aria-label="Why order from us">
+    <section class="ticker motion-ok" aria-label="Why order from us">
       <div class="ticker-track" id="ticker">
         <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg><b>Bulk packs</b> trays, boxes &amp; cartons</span>
         <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9-9-9Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg><b>Bulk order prices</b> lower per piece on bigger orders</span>
@@ -331,6 +329,6 @@
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="script.js?v=12"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>
