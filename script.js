@@ -1,116 +1,130 @@
 /* =========================================================
    STORE DETAILS: edit these and the whole site updates.
    whatsapp: country code + number, digits only (e.g. "919876543210").
-   Leave it empty and WhatsApp will ask which chat to send to.
+   address: leave empty to hide the Address line.
    ========================================================= */
 const STORE = {
   name: "Buymo",
   whatsapp: "916382707034",
   phone: "+91 63827 07034",
-  address: "Shop address goes here",
+  address: "",
   hours: "Mon–Sat · 10:00 AM – 9:00 PM",
 };
 
+/* Offer banners at the top of the page. `cat` is the category the button opens. */
+const OFFERS = [
+  { badge: "Festive season", title: "Christmas Collection is in", text: "LED trees, snowmen and fibre-optic décor. Book your cartons early for the season.", img: "images/xmas-snowman.jpg", cat: "christmas" },
+  { badge: "New arrival", title: "Smart LED Flasks", text: "Touch the lid to see the temperature. Plus rope, floral and printed steel bottles.", img: "images/flask-smart-black.jpg", cat: "bottles" },
+  { badge: "Just landed", title: "Lamps & Outdoor Lights", text: "Solar garden posts, 30W wall lights, lanterns and table lamps.", img: "images/light-solar-garden-pole.jpg", cat: "lights" },
+  { badge: "Bestseller", title: "Character Keychains", text: "Anime, superhero, panda and unicorn designs in 50 pcs packs.", img: "images/keychain-anime.jpg", cat: "keychains" },
+];
+
 const CATEGORIES = [
-  { id: "keychains", label: "Keychains",   color: "#ff4f9a", cover: "images/keychain-anime.jpg" },
-  { id: "toys",      label: "Kawaii Toys", color: "#9b6bff", cover: "images/toy-kitty-figure.jpg" },
-  { id: "hair",      label: "Hair Clips",  color: "#e0337f", cover: "images/hair-peacock.jpg" },
-  { id: "earrings",  label: "Earrings",    color: "#b8860b", cover: "images/earrings-display.jpg" },
-  { id: "decor",     label: "LED Décor",   color: "#1fa88e", cover: "images/decor-lotus-candle.jpg" },
-  { id: "kitchen",   label: "Kitchen",     color: "#2f8fe0", cover: "images/kitchen-knife-set.jpg" },
-  { id: "car",       label: "Car Care",    color: "#2a1838", cover: "images/car-fragrance.jpg" },
-  { id: "bottles",   label: "Bottles & Flasks", color: "#1f6fb2", cover: "images/bottle-printed-mini.jpg" },
-  { id: "christmas", label: "Christmas",   color: "#c0262d", cover: "images/xmas-snowman.jpg" },
-  { id: "lights",    label: "Lamps & Lights", color: "#c77b12", cover: "images/light-solar-garden-pole.jpg" },
+  { id: "christmas", label: "Christmas",        cover: "images/xmas-snowman.jpg" },
+  { id: "lights",    label: "Lamps & Décor",    cover: "images/light-solar-garden-pole.jpg" },
+  { id: "bottles",   label: "Bottles & Flasks", cover: "images/bottle-printed-mini.jpg" },
+  { id: "keychains", label: "Keychains",        cover: "images/keychain-anime.jpg" },
+  { id: "toys",      label: "Toys",             cover: "images/toy-kitty-figure.jpg" },
+  { id: "hair",      label: "Hair & Jewellery", cover: "images/hair-peacock.jpg" },
+  { id: "kitchen",   label: "Kitchen",          cover: "images/kitchen-knife-set.jpg" },
+  { id: "car",       label: "Car Accessories",  cover: "images/car-fragrance.jpg" },
 ];
 
+/* imgs: first photo is the main one. new: shows in New arrivals. */
 const PRODUCTS = [
-  { id: "kc-unicorn",  cat: "keychains", name: "Rainbow Unicorn Keychain",   img: "images/keychain-unicorn.jpg",     pack: "50 pcs pack", tag: "Bestseller", desc: "Rubber unicorn charm with printed silicone strap. Purple, white, blue and pink." },
-  { id: "kc-panda",    cat: "keychains", name: "Panda Baby Keychain",         img: "images/keychain-panda.jpg",       pack: "50 pcs pack", tag: "New",        desc: "Waving panda in a vest with matching strap. Red, blue and black." },
-  { id: "kc-anime",    cat: "keychains", name: "Anime Slayer Keychain",       img: "images/keychain-anime.jpg",       pack: "50 pcs pack", tag: "Trending",   desc: "Detailed anime character figures with flame-print silicone straps." },
-  { id: "kc-batman",   cat: "keychains", name: "Batman Keychain",             img: "images/keychain-batman.jpg",      pack: "50 pcs pack",                    desc: "Caped hero figure in blue, silver and black with a printed strap." },
-  { id: "kc-spidey",   cat: "keychains", name: "Spider-Man Keychain",         img: "images/keychain-spiderman.jpg",   pack: "50 pcs pack", tag: "Hot",        desc: "Four poses including the headphone and hoodie styles, red strap." },
-  { id: "kc-glossy",   cat: "keychains", name: "Glossy Bear & Cat Keychain",  img: "images/keychain-glossy-pets.jpg", pack: "Bulk pack",                      desc: "Pearlescent chunky bear and cat charms on gold rings." },
+  { id: "kc-unicorn",  cat: "keychains", name: "Rainbow Unicorn Keychain",  imgs: ["images/keychain-unicorn.jpg"],     pack: "50 pcs pack", tag: "Bestseller", desc: "Rubber unicorn charm with printed silicone strap. Purple, white, blue and pink." },
+  { id: "kc-anime",    cat: "keychains", name: "Anime Slayer Keychain",      imgs: ["images/keychain-anime.jpg"],       pack: "50 pcs pack", tag: "Bestseller", desc: "Detailed anime character figures with flame-print silicone straps." },
+  { id: "kc-spidey",   cat: "keychains", name: "Spider-Man Keychain",        imgs: ["images/keychain-spiderman.jpg"],   pack: "50 pcs pack", tag: "Bestseller", desc: "Four poses including the headphone and hoodie styles, red strap." },
+  { id: "kc-panda",    cat: "keychains", name: "Panda Baby Keychain",        imgs: ["images/keychain-panda.jpg"],       pack: "50 pcs pack", desc: "Waving panda in a vest with matching strap. Red, blue and black." },
+  { id: "kc-batman",   cat: "keychains", name: "Batman Keychain",            imgs: ["images/keychain-batman.jpg"],      pack: "50 pcs pack", desc: "Caped hero figure in blue, silver and black with a printed strap." },
+  { id: "kc-glossy",   cat: "keychains", name: "Glossy Bear & Cat Keychain", imgs: ["images/keychain-glossy-pets.jpg"], pack: "Bulk pack",   desc: "Pearlescent chunky bear and cat charms on gold rings." },
 
-  { id: "toy-kitty",   cat: "toys", name: "Kitty Love Figure (JLR-21)",       img: "images/toy-kitty-figure.jpg",     pack: "Bulk carton", tag: "Cute pick",  desc: "Pink-bow kitty holding a LOVE heart. Great for gifting and return gifts." },
-  { id: "toy-kitty-b", cat: "toys", name: "Kitty Toy, Carton Lot",            img: "images/toy-kitty-bulk.jpg",       pack: "Bulk carton",                    desc: "Individually packed kitty toys with strap, shipped by the carton." },
-  { id: "toy-bunny",   cat: "toys", name: "Sleepy Bunny Squishy",             img: "images/toy-bunny.jpg",            pack: "Bulk carton",                    desc: "Soft-touch white bunny with flower detail. Individually packed." },
-  { id: "toy-unicorn", cat: "toys", name: "Unicorn Night Light",              img: "images/toy-unicorn-lamp.jpg",     pack: "Bulk carton", tag: "Glows",      desc: "Pink-and-white unicorn that lights up. Individually packed." },
+  { id: "toy-kitty",   cat: "toys", name: "Kitty Love Figure (JLR-21)",      imgs: ["images/toy-kitty-figure.jpg", "images/toy-kitty-bulk.jpg"], pack: "Bulk carton", desc: "Pink-bow kitty holding a LOVE heart. Individually packed with strap, sold by the carton." },
+  { id: "toy-bunny",   cat: "toys", name: "Sleepy Bunny Squishy",            imgs: ["images/toy-bunny.jpg"],            pack: "Bulk carton", desc: "Soft-touch white bunny with flower detail. Individually packed." },
+  { id: "toy-unicorn", cat: "toys", name: "Unicorn Night Light",             imgs: ["images/toy-unicorn-lamp.jpg"],     pack: "Bulk carton", desc: "Pink-and-white unicorn that lights up. Individually packed." },
 
-  { id: "hair-zanzee", cat: "hair", name: "Zanzee Claw Clip Basket",          img: "images/hair-claw-zanzee.jpg",     pack: "48 pcs tray", tag: "Value",      desc: "Assorted matte and clear claw clips in a gift basket." },
-  { id: "hair-mix",    cat: "hair", name: "Assorted Claw Clips",              img: "images/hair-claw-mix.jpg",        pack: "48 pcs tray",                    desc: "Daisy, square, heart and classic shapes, mixed colours." },
-  { id: "hair-basket", cat: "hair", name: "Crystal Claw Clip Tray",           img: "images/hair-claw-basket.jpg",     pack: "48 pcs tray",                    desc: "Translucent and frosted claw clips in a reusable white basket." },
-  { id: "hair-anmor",  cat: "hair", name: "Anmor Square Clips",               img: "images/hair-anmor.jpg",           pack: "24 pcs box",                     desc: "Jelly-rim square clips in black and bright colours." },
-  { id: "hair-pearl",  cat: "hair", name: "Pearl Flower Mini Clips",          img: "images/hair-pearl.jpg",           pack: "24 pcs box",  tag: "Elegant",    desc: "Black mini claws with pearl cluster and rhinestone trim." },
-  { id: "hair-peacock",cat: "hair", name: "Peacock Heart Clips",              img: "images/hair-peacock.jpg",         pack: "24 pcs box",                     desc: "Gold-tone heart clips with painted peacock and swan art." },
+  { id: "hair-claw",   cat: "hair", name: "Assorted Claw Clip Tray",         imgs: ["images/hair-claw-mix.jpg", "images/hair-claw-zanzee.jpg", "images/hair-claw-basket.jpg"], pack: "48 pcs tray", desc: "Daisy, square, heart and classic claw clips in matte, clear and frosted finishes. Comes in a reusable basket." },
+  { id: "hair-peacock",cat: "hair", name: "Peacock Heart Clips",             imgs: ["images/hair-peacock.jpg"],         pack: "24 pcs box",  desc: "Gold-tone heart clips with painted peacock and swan art." },
+  { id: "hair-pearl",  cat: "hair", name: "Pearl Flower Mini Clips",         imgs: ["images/hair-pearl.jpg"],           pack: "24 pcs box",  desc: "Black mini claws with pearl cluster and rhinestone trim." },
+  { id: "hair-anmor",  cat: "hair", name: "Anmor Square Clips",              imgs: ["images/hair-anmor.jpg"],           pack: "24 pcs box",  desc: "Jelly-rim square clips in black and bright colours." },
+  { id: "ear-cards",   cat: "hair", name: "Fashion Earring Cards",           imgs: ["images/earrings-display.jpg"],     pack: "12 pcs card", desc: "Studs, swirls, pearl bows and ballerina drops on hanging cards." },
 
-  { id: "ear-cards",   cat: "earrings", name: "Fashion Earring Cards",         img: "images/earrings-display.jpg",     pack: "Per card dozen", tag: "Many designs", desc: "Studs, swirls, pearl bows and ballerina drops on hanging cards." },
+  { id: "bot-smart",   cat: "bottles", name: "Smart LED Flask 500 ml",       imgs: ["images/flask-smart-black.jpg", "images/flask-smart-white.jpg"], pack: "Bulk carton", new: true, desc: "Touch the lid to see drink temperature. 304 stainless steel, hot & cold, leak-proof. Black and white." },
+  { id: "bot-rope",    cat: "bottles", name: "Rope Bottle 500 ml",           imgs: ["images/bottle-rope.jpg"],          pack: "50 pcs carton", tag: "5 colours", new: true, desc: "Double-wall stainless steel with rope handle. Blue, black, rose gold, silver and gold." },
+  { id: "bot-floral",  cat: "bottles", name: "Plan Floral Mini Bottle 300 ml", imgs: ["images/bottle-plan-floral.jpg"], pack: "Bulk carton", new: true, desc: "Insulated mini bottle with steel cap and carry ring. Seven pastel and bold colours." },
+  { id: "bot-printed", cat: "bottles", name: "Printed Mini Bottle",          imgs: ["images/bottle-printed-mini.jpg"],  pack: "Bulk carton", tag: "In stock", new: true, desc: "Insulated mini bottles in peacock, rose, butterfly and blue-porcelain prints." },
 
-  { id: "dec-lotus",   cat: "decor", name: "Crystal Lotus LED Candle",         img: "images/decor-lotus-candle.jpg",   pack: "6 pcs box",   tag: "Festive",    desc: "Flameless LED tealight in an acrylic lotus. Smokeless and safe." },
-  { id: "dec-tealight",cat: "decor", name: "LED Tealight Set",                 img: "images/decor-tealight.jpg",       pack: "24 pcs set",                     desc: "Crystal-cut flameless tealights for pooja, parties and décor." },
+  { id: "kit-knife",   cat: "kitchen", name: "Knife & Chopping Board Set",   imgs: ["images/kitchen-knife-set.jpg"],    pack: "Per set",   desc: "Board, chef knife, two utility knives and kitchen scissors." },
+  { id: "kit-grinder", cat: "kitchen", name: "Nima Electric Grinder NM-8300", imgs: ["images/kitchen-grinder.jpg"],     pack: "Per piece", desc: "300W, stainless steel bowl, metal blade. Coffee, spices, dry masala." },
 
-  { id: "kit-knife",   cat: "kitchen", name: "Knife & Chopping Board Set",     img: "images/kitchen-knife-set.jpg",    pack: "Per set",                        desc: "Board, chef knife, two utility knives and kitchen scissors." },
-  { id: "kit-grinder", cat: "kitchen", name: "Nima Electric Grinder NM-8300",  img: "images/kitchen-grinder.jpg",      pack: "Per piece",                      desc: "300W, stainless steel bowl, metal blade. Coffee, spices, dry masala." },
+  { id: "lt-garden",   cat: "lights", name: "Solar Garden Pole Light (MG)",  imgs: ["images/light-solar-garden-pole.jpg"], pack: "Per piece", tag: "Solar", new: true, desc: "Solar-charged lawn post with pleated pendant lamp and LED side strip. For gardens and pathways." },
+  { id: "lt-crystal",  cat: "lights", name: "Crystal Wall Light (ZTD-30W)",  imgs: ["images/light-crystal-wall.jpg"],    pack: "Per piece", new: true, desc: "30W wall lamp with diamond-cut glass shade and warm glow. For gates, porches and compound walls." },
+  { id: "lt-lantern",  cat: "lights", name: "Lantern Wall Light (MJ-30W)",   imgs: ["images/light-lantern-wall.jpg"],    pack: "Per piece", new: true, desc: "30W lantern-style wall lamp with filament-look bulb and black metal frame." },
+  { id: "lt-hanging",  cat: "lights", name: "Hanging LED Lantern (YDD)",     imgs: ["images/light-hanging-lantern.jpg"], pack: "Per piece", tag: "3 modes", new: true, desc: "Pleated-shade lantern with hook. Full, half and flash modes for camping, balconies and décor." },
+  { id: "lt-table",    cat: "lights", name: "Pleated Table Lamp (YD-CK01)",  imgs: ["images/light-pleated-table-lamp.jpg"], pack: "Per piece", new: true, desc: "Bedside lamp with pleated metal shade and soft warm light." },
+  { id: "dec-lotus",   cat: "lights", name: "Crystal Lotus LED Candle",      imgs: ["images/decor-lotus-candle.jpg"],    pack: "6 pcs box",  desc: "Flameless LED tealight in an acrylic lotus. Smokeless and safe for pooja and décor." },
+  { id: "dec-tealight",cat: "lights", name: "LED Tealight Set",              imgs: ["images/decor-tealight.jpg"],        pack: "24 pcs set", desc: "Crystal-cut flameless tealights for pooja, parties and décor." },
 
-  { id: "car-heli",    cat: "car", name: "Solar Helicopter Car Fragrance",     img: "images/car-fragrance.jpg",        pack: "Per piece",   tag: "Spins in sun", desc: "Carlax solar-powered rotor spreads fragrance evenly. Cologne scent." },
+  { id: "xm-snowman",  cat: "christmas", name: "LED Snowman (MAA 290 Z)",    imgs: ["images/xmas-snowman.jpg"],          pack: "300 pcs carton", new: true, desc: "6\" glowing crystal snowman with knitted striped hat and scarf. Gift boxed." },
+  { id: "xm-star",     cat: "christmas", name: "Crystal Star Tree Lamp (MAA 290 G)", imgs: ["images/xmas-crystal-star-tree.jpg"], pack: "240 pcs carton", new: true, desc: "6\" LED crystal tree with star topper and warm glow. Gift boxed." },
+  { id: "xm-spiral",   cat: "christmas", name: "Spiral Crystal Tree (MAA 290 L)", imgs: ["images/xmas-spiral-tree.jpg"],     pack: "480 pcs carton", new: true, desc: "4\" ribbed crystal tree with warm LED and star. Compact gift-boxed piece." },
+  { id: "xm-fibre",    cat: "christmas", name: "Fibre-Optic Tree (MAA 290 M)", imgs: ["images/xmas-fibre-optic-tree.jpg"],  pack: "500 pcs carton", new: true, desc: "5.5\" fibre-optic tree with star that glows in changing colours. Gift boxed." },
+  { id: "xm-acrylic",  cat: "christmas", name: "Colour-Change Tree 6\" (MAA6340-11)", imgs: ["images/xmas-acrylic-tree.jpg"], pack: "240 pcs carton", new: true, desc: "Acrylic Christmas tree with colour-changing LED base. Gift boxed." },
+  { id: "xm-acrylic-l",cat: "christmas", name: "Colour-Change Tree 7.5\" (MAA6340-12)", imgs: ["images/xmas-acrylic-tree-large.jpg"], pack: "144 pcs carton", new: true, desc: "Larger acrylic Christmas tree with colour-changing LED base. Gift boxed." },
 
-  { id: "bot-smart-bk",cat: "bottles", name: "Smart LED Flask 500 ml, Black",  img: "images/flask-smart-black.jpg",    pack: "Bulk carton", tag: "Smart",      desc: "Touch the lid to see drink temperature. 304 stainless steel, hot & cold, leak-proof." },
-  { id: "bot-smart-wh",cat: "bottles", name: "Smart LED Flask 500 ml, White",  img: "images/flask-smart-white.jpg",    pack: "Bulk carton",                    desc: "Touch the lid to see drink temperature. 304 stainless steel, hot & cold, leak-proof." },
-  { id: "bot-rope",    cat: "bottles", name: "Rope Bottle 500 ml",              img: "images/bottle-rope.jpg",          pack: "50 pcs carton", tag: "5 colours", desc: "Double-wall stainless steel with rope handle. Blue, black, rose gold, silver and gold." },
-  { id: "bot-floral",  cat: "bottles", name: "Plan Floral Mini Bottle 300 ml",  img: "images/bottle-plan-floral.jpg",   pack: "Bulk carton",                    desc: "Insulated mini bottle with steel cap and carry ring. Seven pastel and bold colours." },
-  { id: "bot-printed", cat: "bottles", name: "Printed Mini Bottle",             img: "images/bottle-printed-mini.jpg",  pack: "Bulk carton", tag: "In stock",   desc: "Insulated mini bottles in peacock, rose, butterfly and blue-porcelain prints." },
-
-  { id: "xm-snowman",  cat: "christmas", name: "LED Snowman (MAA 290 Z)",       img: "images/xmas-snowman.jpg",         pack: "300 pcs carton", tag: "Kids love", desc: "6\" glowing crystal snowman with knitted striped hat and scarf. Gift boxed." },
-  { id: "xm-star",     cat: "christmas", name: "Crystal Star Tree Lamp (MAA 290 G)", img: "images/xmas-crystal-star-tree.jpg", pack: "240 pcs carton", tag: "Festive", desc: "6\" LED crystal tree with star topper and warm glow. Gift boxed." },
-  { id: "xm-spiral",   cat: "christmas", name: "Spiral Crystal Tree (MAA 290 L)", img: "images/xmas-spiral-tree.jpg",     pack: "480 pcs carton",                 desc: "4\" ribbed crystal tree with warm LED and star. Compact gift-boxed piece." },
-  { id: "xm-fibre",    cat: "christmas", name: "Fibre-Optic Tree (MAA 290 M)",  img: "images/xmas-fibre-optic-tree.jpg", pack: "500 pcs carton",                desc: "5.5\" fibre-optic tree with star that glows in changing colours. Gift boxed." },
-  { id: "xm-acrylic",  cat: "christmas", name: "Colour-Change Tree 6\" (MAA6340-11)", img: "images/xmas-acrylic-tree.jpg", pack: "240 pcs carton",              desc: "Acrylic Christmas tree with colour-changing LED base. Gift boxed." },
-  { id: "xm-acrylic-l",cat: "christmas", name: "Colour-Change Tree 7.5\" (MAA6340-12)", img: "images/xmas-acrylic-tree-large.jpg", pack: "144 pcs carton", tag: "Large", desc: "Larger acrylic Christmas tree with colour-changing LED base. Gift boxed." },
-
-  { id: "lt-garden",   cat: "lights", name: "Solar Garden Pole Light (MG)",     img: "images/light-solar-garden-pole.jpg", pack: "Per piece", tag: "Solar",    desc: "Solar-charged lawn post with pleated pendant lamp and LED side strip. For gardens and pathways." },
-  { id: "lt-crystal",  cat: "lights", name: "Crystal Wall Light (ZTD-30W)",     img: "images/light-crystal-wall.jpg",    pack: "Per piece",                    desc: "30W wall lamp with diamond-cut glass shade and warm glow. For gates, porches and compound walls." },
-  { id: "lt-lantern",  cat: "lights", name: "Lantern Wall Light (MJ-30W)",      img: "images/light-lantern-wall.jpg",    pack: "Per piece",                    desc: "30W lantern-style wall lamp with filament-look bulb and black metal frame." },
-  { id: "lt-hanging",  cat: "lights", name: "Hanging LED Lantern (YDD)",        img: "images/light-hanging-lantern.jpg", pack: "Per piece",   tag: "3 modes",  desc: "Pleated-shade lantern with hook. Full, half and flash modes for camping, balconies and décor." },
-  { id: "lt-table",    cat: "lights", name: "Pleated Table Lamp (YD-CK01)",     img: "images/light-pleated-table-lamp.jpg", pack: "Per piece",                 desc: "Bedside lamp with pleated metal shade and soft warm light." },
+  { id: "car-heli",    cat: "car", name: "Solar Helicopter Car Fragrance",   imgs: ["images/car-fragrance.jpg", "images/car-fragrance-2.jpg"], pack: "Per piece", desc: "Carlax solar-powered rotor spreads fragrance evenly. Cologne scent." },
 ];
 
-const FEATURED = ["xm-snowman", "kc-unicorn", "bot-smart-bk", "lt-garden", "kc-anime", "toy-kitty", "xm-star", "hair-peacock", "kc-spidey", "dec-lotus", "bot-rope", "car-heli", "kc-panda"];
+/* =========================================================
+   PRICES (DEMO): [wholesale price per piece, MRP per piece] in ₹.
+   Replace these with your real prices. Offer cards work out
+   "From ₹…" and "Up to …% off" from this table automatically.
+   ========================================================= */
+const PRICES = {
+  "kc-unicorn":  [18, 39],   "kc-anime":   [22, 49],   "kc-spidey":   [20, 45],
+  "kc-panda":    [17, 39],   "kc-batman":  [20, 45],   "kc-glossy":   [24, 55],
+  "toy-kitty":   [49, 99],   "toy-bunny":  [39, 79],   "toy-unicorn": [119, 249],
+  "hair-claw":   [12, 29],   "hair-peacock": [19, 45], "hair-pearl":  [17, 39],
+  "hair-anmor":  [14, 35],   "ear-cards":  [19, 49],
+  "bot-smart":   [199, 499], "bot-rope":   [149, 349], "bot-floral":  [129, 299],
+  "bot-printed": [149, 349],
+  "kit-knife":   [179, 399], "kit-grinder": [549, 1199],
+  "lt-garden":   [899, 1899], "lt-crystal": [499, 1099], "lt-lantern": [449, 999],
+  "lt-hanging":  [199, 449], "lt-table":   [349, 749], "dec-lotus":   [35, 79],
+  "dec-tealight": [19, 45],
+  "xm-snowman":  [99, 229],  "xm-star":    [89, 199],  "xm-spiral":   [59, 139],
+  "xm-fibre":    [69, 159],  "xm-acrylic": [109, 249], "xm-acrylic-l": [139, 299],
+  "car-heli":    [249, 549],
+};
+PRODUCTS.forEach(p => {
+  const [price, mrp] = PRICES[p.id] || [];
+  const per = "pc";
+  Object.assign(p, { price, mrp, per, off: price && mrp > price ? Math.round((1 - price / mrp) * 100) : 0 });
+});
+
+const BESTSELLERS = ["kc-unicorn", "kc-anime", "toy-kitty", "kc-spidey", "hair-peacock", "bot-smart", "dec-lotus", "hair-claw", "kc-panda", "car-heli"];
 
 /* ---------- setup ---------- */
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const byId = Object.fromEntries(PRODUCTS.map(p => [p.id, p]));
 const catById = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
-const NAV_H = 70;
-
-const hasGSAP = !!(window.gsap && window.ScrollTrigger);
-// Reduced-motion devices still get entrance animations, but no smooth-scroll or scroll-linked parallax.
+const root = document.documentElement;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const motion = hasGSAP;
-const calm = reduceMotion;
 const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+const isMobile = () => matchMedia("(max-width: 760px)").matches;
+const ARROW = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
 
-if (hasGSAP) {
-  gsap.registerPlugin(ScrollTrigger, ...(window.Flip ? [Flip] : []));
-  document.documentElement.classList.add("gsap");
-}
-
-let lenis = null;
-if (motion && !calm && window.Lenis) {
-  lenis = new Lenis({ lerp: 0.1 });
-  lenis.on("scroll", ScrollTrigger.update);
-  gsap.ticker.add(t => lenis.raf(t * 1000));
-  gsap.ticker.lagSmoothing(0);
-}
-
-function scrollToEl(el) {
-  if (!el) return;
-  if (lenis) lenis.scrollTo(el, { offset: -NAV_H - 10, duration: 1.4 });
-  else el.scrollIntoView({ behavior: "smooth" });
-}
-function lockScroll(on) {
-  if (lenis) on ? lenis.stop() : lenis.start();
-  else document.body.style.overflow = on ? "hidden" : "";
+/* ---------- prices ---------- */
+const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+// pieces in one order unit, when the price is per piece but we sell by the carton
+const unitsIn = p => p.per === "pc" ? +((p.pack.match(/(\d+)\s*pcs/) || [])[1] || 1) : 1;
+const orderUnit = p => unitsIn(p) > 1 ? p.pack.split(" ").pop() : p.per;
+const plural = (n, word) => `${n} ${word}${n === 1 ? "" : word.endsWith("x") ? "es" : "s"}`;
+function priceHTML(p) {
+  if (!p.price) return "";
+  return `<b>${inr(p.price)}<small>/${p.per}</small></b>${p.off ? `<s>${inr(p.mrp)}</s><em>${p.off}% off</em>` : ""}`;
 }
 
 function waLink(text) {
@@ -124,17 +138,25 @@ function toast(msg) {
   t.textContent = msg;
   t.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 1900);
+}
+
+function bump(el) {
+  el.classList.remove("bump");
+  void el.offsetWidth;
+  el.classList.add("bump");
 }
 
 /* ---------- store details ---------- */
 $$("[data-store]").forEach(el => {
   const key = el.dataset.store;
-  if (STORE[key]) el.textContent = STORE[key];
+  if (STORE[key]) el.textContent = key === "phone" && el.classList.contains("btn") ? "Call us" : STORE[key];
   if (key === "phone") el.href = `tel:${STORE.phone.replace(/[^\d+]/g, "")}`;
 });
-document.title = `${STORE.name} · Wholesale Gifts & Accessories`;
+$$("[data-store-row]").forEach(el => { el.hidden = !STORE[el.dataset.storeRow]; });
+$("#year").textContent = new Date().getFullYear();
 
+/* ---------- global clicks ---------- */
 document.addEventListener("click", e => {
   const wa = e.target.closest("[data-wa]");
   if (wa) {
@@ -142,215 +164,414 @@ document.addEventListener("click", e => {
     window.open(waLink(wa.dataset.wa), "_blank", "noopener");
     return;
   }
-  const a = e.target.closest('a[href^="#"]');
-  if (a && a.getAttribute("href").length > 1) {
-    const target = $(a.getAttribute("href"));
-    if (target) { e.preventDefault(); scrollToEl(target); }
+  const go = e.target.closest("[data-cat-go]");
+  if (go) {
+    e.preventDefault();
+    setCategory(go.dataset.catGo, true);
+    return;
   }
-});
-
-/* ---------- cart state ---------- */
-let cart = {};
-try { cart = JSON.parse(localStorage.getItem("enquiry") || "{}"); } catch { cart = {}; }
-for (const id in cart) if (!byId[id]) delete cart[id];
-
-/* ---------- render: featured ---------- */
-$("#featuredTrack").innerHTML = FEATURED.map((id, i) => {
-  const p = byId[id];
-  return `<article class="f-card" data-id="${id}">
-    <span class="f-num">${String(i + 1).padStart(2, "0")}</span>
-    <button class="f-media" data-qv="${id}" aria-label="Quick view ${p.name}"><img src="${p.img}" alt="${p.name}" loading="lazy"></button>
-    <div class="f-body">
-      <div><h3>${p.name}</h3><small>${p.pack}</small></div>
-      <button class="add-btn" data-add="${id}">+ Add</button>
-    </div>
-  </article>`;
-}).join("");
-
-/* ---------- render: categories ---------- */
-$("#catGrid").innerHTML = CATEGORIES.map(c => {
-  const count = PRODUCTS.filter(p => p.cat === c.id).length;
-  return `<button class="cat" data-cat="${c.id}">
-    <img src="${c.cover}" alt="" loading="lazy">
-    <span class="cat-arrow" aria-hidden="true">→</span>
-    <span class="cat-label"><strong>${c.label}</strong><small>${count} ${count === 1 ? "item" : "items"}</small></span>
-  </button>`;
-}).join("");
-$("#catGrid").addEventListener("click", e => {
-  const btn = e.target.closest(".cat");
-  if (!btn) return;
-  setFilter(btn.dataset.cat);
-  scrollToEl($("#catalogue"));
-});
-
-/* ---------- render: catalogue ---------- */
-$("#productGrid").innerHTML = PRODUCTS.map(p => {
-  const c = catById[p.cat];
-  return `<article class="card" data-id="${p.id}">
-    <button class="card-media" data-qv="${p.id}" aria-label="Quick view ${p.name}">
-      ${p.tag ? `<span class="tag">${p.tag}</span>` : ""}
-      <img src="${p.img}" alt="${p.name}" loading="lazy">
-      <span class="quick">Quick view</span>
-    </button>
-    <div class="card-body">
-      <span class="card-cat" style="color:${c.color}">${c.label}</span>
-      <h3>${p.name}</h3>
-      <p>${p.desc}</p>
-      <div class="card-foot">
-        <span class="pack">${p.pack}</span>
-        <button class="add-btn" data-add="${p.id}">+ Add</button>
-      </div>
-    </div>
-  </article>`;
-}).join("");
-
-$("#chips").innerHTML = `<span class="chip-pill" id="chipPill"></span>` + [{ id: "all", label: "All" }, ...CATEGORIES]
-  .map(c => `<button class="chip" role="tab" data-cat="${c.id}" aria-selected="${c.id === "all"}">${c.label}</button>`)
-  .join("");
-
-let filter = "all";
-let query = "";
-let cardsRevealed = false;
-
-function moveChipPill(animate = true) {
-  const chip = $(`.chip[data-cat="${filter}"]`);
-  const pill = $("#chipPill");
-  const box = { x: chip.offsetLeft, y: chip.offsetTop, width: chip.offsetWidth, height: chip.offsetHeight };
-  if (hasGSAP && animate) gsap.to(pill, { ...box, duration: 0.45, ease: "power3.out" });
-  else Object.assign(pill.style, { left: 0, top: 0, width: box.width + "px", height: box.height + "px", transform: `translate(${box.x}px, ${box.y}px)` });
-  const chips = $("#chips");
-  if (chips.scrollWidth > chips.clientWidth) {
-    chips.scrollTo({ left: chip.offsetLeft - chips.clientWidth / 2 + chip.offsetWidth / 2, behavior: "smooth" });
-  }
-}
-
-function setFilter(cat) {
-  filter = cat;
-  $$(".chip").forEach(c => c.setAttribute("aria-selected", c.dataset.cat === cat));
-  moveChipPill();
-  applyFilter();
-}
-
-function applyFilter(animate = true) {
-  const cards = $$("#productGrid .card");
-  const useFlip = animate && motion && window.Flip;
-  if (useFlip && !cardsRevealed) { gsap.set(cards, { opacity: 1, y: 0 }); cardsRevealed = true; }
-  const state = useFlip ? Flip.getState(cards) : null;
-  let shown = 0;
-  cards.forEach(card => {
-    const p = byId[card.dataset.id];
-    const hay = `${p.name} ${p.desc} ${catById[p.cat].label}`.toLowerCase();
-    const ok = (filter === "all" || p.cat === filter) && (!query || hay.includes(query));
-    card.classList.toggle("is-hidden", !ok);
-    if (ok) shown++;
-  });
-  $("#empty").hidden = shown > 0;
-  $("#resultCount").textContent = `${shown} of ${PRODUCTS.length} items`;
-  if (state) {
-    Flip.from(state, {
-      duration: 0.6, ease: "power3.inOut", absolute: true, scale: true,
-      onEnter: els => gsap.fromTo(els, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, delay: 0.15, ease: "back.out(1.6)" }),
-      onLeave: els => gsap.to(els, { opacity: 0, scale: 0.8, duration: 0.3 }),
-      onComplete: () => ScrollTrigger.refresh(),
-    });
-  } else if (hasGSAP && animate) {
-    ScrollTrigger.refresh();
-  }
-}
-
-$("#chips").addEventListener("click", e => {
-  const chip = e.target.closest(".chip");
-  if (chip) setFilter(chip.dataset.cat);
-});
-let searchTimer;
-$("#search").addEventListener("input", e => {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => { query = e.target.value.trim().toLowerCase(); applyFilter(); }, 160);
-});
-$("#resetFilters").addEventListener("click", () => {
-  query = "";
-  $("#search").value = "";
-  setFilter("all");
-});
-addEventListener("resize", () => moveChipPill(false));
-
-/* ---------- add / quick view clicks ---------- */
-document.addEventListener("click", e => {
   const add = e.target.closest("[data-add]");
   if (add) {
-    const id = add.dataset.add;
-    if (cart[id]) { openDrawer(); return; }
-    const img = add.closest(".card, .f-card")?.querySelector("img");
-    addToCart(id, 1, img);
+    if (cart[add.dataset.add]) openDrawer();
+    else addToCart(add.dataset.add, 1, add);
     return;
   }
   const qv = e.target.closest("[data-qv]");
   if (qv) openQuickView(qv.dataset.qv, qv);
 });
 
-function addToCart(id, qty, img) {
-  cart[id] = qty;
-  saveCart();
-  toast(`Added ${byId[id].name}`);
-  if (img && motion) flyToCart(img);
-  else bumpBadge();
+/* ---------- footer categories ---------- */
+$("#footerCats").innerHTML = CATEGORIES.map(c => `<li><a href="#catalogue" data-cat-go="${c.id}">${esc(c.label)}</a></li>`).join("");
+
+/* ---------- ticker: duplicate items so the loop is seamless ---------- */
+const ticker = $("#ticker");
+ticker.innerHTML += ticker.innerHTML.replace(/<span>/g, '<span aria-hidden="true">');
+const announce = $("#announce");
+announce.innerHTML += announce.innerHTML.replace(/<span>/g, '<span aria-hidden="true">');
+
+/* ---------- rotating word in the headline ---------- */
+const ROTATE_WORDS = ["sells out", "kids love", "makes gifts", "fills shelves", "earns more"];
+const rotator = $("#rotator");
+let rotIndex = 0;
+function setRotatorWidth(word) {
+  rotator.style.width = `${word.getBoundingClientRect().width}px`;
+}
+function rotateWord() {
+  const old = $(".rot-word.is-in", rotator) || $(".rot-word", rotator);
+  rotIndex = (rotIndex + 1) % ROTATE_WORDS.length;
+  const next = document.createElement("span");
+  next.className = "rot-word is-in";
+  next.textContent = ROTATE_WORDS[rotIndex];
+  old.classList.remove("is-in");
+  old.classList.add("is-out");
+  old.addEventListener("animationend", () => old.remove(), { once: true });
+  setTimeout(() => old.remove(), 600);
+  rotator.append(next);
+  setRotatorWidth(next);
+}
+{
+  rotator.style.display = "inline-block";
+  setRotatorWidth($(".rot-word", rotator));
+  document.fonts?.ready.then(() => setRotatorWidth($(".rot-word.is-in", rotator) || $(".rot-word", rotator)));
+  setInterval(() => { if (!document.hidden && root.classList.contains("ready")) rotateWord(); }, 2600);
 }
 
-function flyToCart(img) {
-  const from = img.getBoundingClientRect();
-  const to = $("#openDrawer").getBoundingClientRect();
-  const size = Math.min(from.width, 140);
-  const clone = img.cloneNode();
-  clone.className = "fly";
-  Object.assign(clone.style, { left: from.left + (from.width - size) / 2 + "px", top: from.top + (from.height - size) / 2 + "px", width: size + "px", height: size + "px" });
-  document.body.appendChild(clone);
-  const dx = to.left + to.width / 2 - (from.left + from.width / 2);
-  const dy = to.top + to.height / 2 - (from.top + from.height / 2);
-  gsap.to(clone, { x: dx, duration: 0.85, ease: "power1.inOut" });
-  gsap.to(clone, { y: dy, duration: 0.85, ease: "back.in(1.4)" });
-  gsap.to(clone, { scale: 0.12, rotation: 25, borderRadius: "50%", duration: 0.85, ease: "power2.in", onComplete: () => { clone.remove(); bumpBadge(); } });
+/* ---------- offer showcase ---------- */
+const showcase = $("#showcase"), slidesEl = $("#slides"), scBar = $("#scBar");
+function offerPrice(cat) {
+  const list = PRODUCTS.filter(p => p.cat === cat && p.price);
+  if (!list.length) return "";
+  const low = Math.min(...list.map(p => p.price));
+  const best = Math.max(...list.map(p => p.off));
+  return `<div class="sc-price"><b>From ${inr(low)}<small>/pc</small></b>${best ? `<span>Up to ${best}% off</span>` : ""}</div>`;
+}
+slidesEl.innerHTML = OFFERS.map((o, i) => `
+  <article class="sc-slide" data-cat-go="${o.cat}" aria-roledescription="slide" aria-label="${i + 1} of ${OFFERS.length}: ${esc(o.title)}">
+    <img src="${o.img}" alt="" draggable="false" ${i ? 'loading="lazy"' : ""}>
+    <div class="sc-copy">
+      <span class="sc-badge">${esc(o.badge)}</span>
+      <h2>${esc(o.title)}</h2>
+      <p>${esc(o.text)}</p>
+      ${offerPrice(o.cat)}
+      <span class="sc-cta">Shop now ${ARROW}</span>
+    </div>
+  </article>`).join("");
+scBar.innerHTML = OFFERS.map(o => `<button aria-label="Show ${esc(o.title)}"><i></i></button>`).join("");
+const scSlides = $$(".sc-slide", slidesEl), scBtns = $$("button", scBar);
+let scIndex = 0;
+
+// Autoplay runs on a timer, not on the progress-bar animation, so it stays steady
+// even when the visitor's device has animations switched off.
+const SLIDE_MS = 5500;
+let scTimer = null, scStart = 0, scLeft = SLIDE_MS, scPaused = false;
+function schedule(ms) {
+  clearTimeout(scTimer);
+  scStart = performance.now();
+  scLeft = ms;
+  if (!scPaused) scTimer = setTimeout(() => showSlide(scIndex + 1), ms);
+}
+function pauseSlides() {
+  if (scPaused) return;
+  scPaused = true;
+  clearTimeout(scTimer);
+  scLeft = Math.max(0, scLeft - (performance.now() - scStart));
+  showcase.classList.add("paused");
+}
+function resumeSlides() {
+  if (!scPaused) return;
+  scPaused = false;
+  showcase.classList.remove("paused");
+  schedule(scLeft);
 }
 
-function bumpBadge() {
-  if (!motion) return;
-  gsap.fromTo("#cartCount", { scale: 1.8 }, { scale: 1, duration: 0.8, ease: "elastic.out(1, .35)" });
-  gsap.fromTo("#openDrawer", { rotation: -6 }, { rotation: 0, duration: 0.7, ease: "elastic.out(1, .3)" });
+function showSlide(i) {
+  scIndex = (i + scSlides.length) % scSlides.length;
+  scSlides.forEach((s, k) => {
+    s.classList.toggle("active", k === scIndex);
+    s.setAttribute("aria-hidden", k !== scIndex);
+  });
+  // re-adding the class restarts the progress animation from zero
+  scBtns.forEach(b => b.classList.remove("active"));
+  void scBar.offsetWidth;
+  scBtns[scIndex].classList.add("active");
+  scBtns.forEach((b, k) => b.setAttribute("aria-current", k === scIndex));
+  schedule(SLIDE_MS);
 }
+
+scBar.addEventListener("click", e => {
+  const i = scBtns.indexOf(e.target.closest("button"));
+  if (i >= 0) showSlide(i);
+});
+$("#scPrev").addEventListener("click", () => showSlide(scIndex - 1));
+$("#scNext").addEventListener("click", () => showSlide(scIndex + 1));
+showcase.addEventListener("mouseenter", pauseSlides);
+showcase.addEventListener("mouseleave", resumeSlides);
+showcase.addEventListener("focusin", pauseSlides);
+showcase.addEventListener("focusout", resumeSlides);
+document.addEventListener("visibilitychange", () => document.hidden ? pauseSlides() : resumeSlides());
+
+// swipe left or right on phones
+let swipe = null;
+slidesEl.addEventListener("pointerdown", e => { swipe = { x: e.clientX, y: e.clientY }; });
+slidesEl.addEventListener("pointerup", e => {
+  if (!swipe) return;
+  const dx = e.clientX - swipe.x, dy = e.clientY - swipe.y;
+  swipe = null;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+    showSlide(scIndex + (dx < 0 ? 1 : -1));
+    slidesEl.addEventListener("click", ev => ev.stopPropagation(), { capture: true, once: true });
+  }
+});
+
+showSlide(0);
+
+/* ---------- product cards ---------- */
+function cardHTML(p, i = 0) {
+  const c = catById[p.cat];
+  const tag = p.tag ? `<span class="tag">${esc(p.tag)}</span>` : p.new ? `<span class="tag tag-new">New</span>` : "";
+  const more = p.imgs.length > 1 ? `<span class="more-imgs">+${p.imgs.length - 1} photo${p.imgs.length > 2 ? "s" : ""}</span>` : "";
+  return `<article class="card" data-id="${p.id}" style="--i:${i}">
+    <button class="card-media" data-qv="${p.id}" aria-label="View ${esc(p.name)}">${tag}<img src="${p.imgs[0]}" alt="${esc(p.name)}" loading="lazy">${more}</button>
+    <div class="card-body">
+      <span class="card-cat">${esc(c.label)}</span>
+      <button class="card-name" data-qv="${p.id}">${esc(p.name)}</button>
+      <div class="price card-price">${priceHTML(p)}</div>
+      <span class="card-pack">${/^Per /.test(p.pack) ? "" : esc(p.pack)}</span>
+      <button class="add-btn" data-add="${p.id}" aria-label="Add ${esc(p.name)} to list">+ Add</button>
+    </div>
+  </article>`;
+}
+
+// soft glow that follows the cursor over a card
+if (finePointer && !reduceMotion) {
+  document.addEventListener("pointermove", e => {
+    const card = e.target.closest?.(".card");
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    card.style.setProperty("--my", `${e.clientY - r.top}px`);
+  }, { passive: true });
+}
+
+/* ---------- product rows ---------- */
+$("#bestRow").innerHTML = BESTSELLERS.map((id, i) => cardHTML(byId[id], i)).join("");
+$("#newRow").innerHTML = PRODUCTS.filter(p => p.new).map((p, i) => cardHTML(p, i)).join("");
+function updateRowButtons(row) {
+  $$(`.row-btn[data-row="${row.id}"]`).forEach(b => {
+    b.disabled = +b.dataset.dir < 0 ? row.scrollLeft < 8 : row.scrollLeft + row.clientWidth > row.scrollWidth - 8;
+  });
+}
+$$(".row").forEach(row => {
+  row.addEventListener("scroll", () => updateRowButtons(row), { passive: true });
+  updateRowButtons(row);
+});
+$$(".row-btn").forEach(b => b.addEventListener("click", () => {
+  const row = $("#" + b.dataset.row);
+  row.scrollBy({ left: +b.dataset.dir * row.clientWidth * 0.9 });
+}));
+addEventListener("resize", () => $$(".row").forEach(updateRowButtons));
+$("#viewNew").addEventListener("click", () => {
+  state.sort = "new";
+  $("#sort").value = "new";
+  setCategory("all", true);
+});
+
+/* ---------- catalogue: filter, search, sort ---------- */
+const state = { cat: "all", q: "", sort: "popular" };
+
+function matches(p, q) {
+  if (!q) return true;
+  const hay = `${p.name} ${p.desc} ${catById[p.cat].label} ${p.pack}`.toLowerCase();
+  return q.split(/\s+/).every(t => hay.includes(t));
+}
+
+const countIn = id => id === "all" ? PRODUCTS.length : PRODUCTS.filter(p => p.cat === id).length;
+$("#chips").innerHTML = [{ id: "all", label: "All" }, ...CATEGORIES].map(c =>
+  `<button class="chip" data-cat="${c.id}" aria-pressed="false">${esc(c.label)}<small>${countIn(c.id)}</small></button>`
+).join("");
+$("#chips").addEventListener("click", e => {
+  const b = e.target.closest("[data-cat]");
+  if (b) setCategory(b.dataset.cat);
+});
+
+function renderGrid() {
+  let list = PRODUCTS.filter(p => (state.cat === "all" || p.cat === state.cat) && matches(p, state.q));
+  if (state.sort === "new") list = [...list].sort((a, b) => (b.new ? 1 : 0) - (a.new ? 1 : 0));
+  if (state.sort === "deal") list = [...list].sort((a, b) => b.off - a.off);
+  if (state.sort === "low") list = [...list].sort((a, b) => a.price - b.price);
+  if (state.sort === "high") list = [...list].sort((a, b) => b.price - a.price);
+  if (state.sort === "az") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+  if (state.sort === "za") list = [...list].sort((a, b) => b.name.localeCompare(a.name));
+
+  $("#grid").innerHTML = list.map((p, i) => cardHTML(p, i)).join("");
+  $("#empty").hidden = list.length > 0;
+  $("#resultsTitle").textContent = state.cat === "all" ? "All products" : catById[state.cat].label;
+  $("#resultCount").textContent = `${list.length} ${list.length === 1 ? "product" : "products"} · tap any item for details`;
+  $("#searchNote").hidden = !state.q;
+  $("#searchTerm").textContent = `“${state.q}”`;
+  $("#askMissing").dataset.wa = state.q ? `Hi! Do you have ${state.q}?` : "Hi! I'm looking for a product that isn't on the website.";
+
+  $$(".chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.cat === state.cat));
+  syncAddButtons();
+}
+
+function scrollToCatalogue() {
+  $("#catalogue").scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+}
+
+function setCategory(cat, scroll = false) {
+  state.cat = cat;
+  renderGrid();
+  if (scroll) scrollToCatalogue();
+  const chip = $(`.chip[data-cat="${cat}"]`);
+  if (chip) chip.parentElement.scrollTo({ left: chip.offsetLeft - 40, behavior: "smooth" });
+}
+
+$("#sort").addEventListener("change", e => { state.sort = e.target.value; renderGrid(); });
+$("#resetFilters").addEventListener("click", () => {
+  state.cat = "all"; state.q = ""; input.value = "";
+  renderGrid();
+});
+$("#clearSearch").addEventListener("click", () => { state.q = ""; input.value = ""; renderGrid(); });
+
+/* ---------- search with suggestions ---------- */
+const input = $("#search"), sug = $("#suggest");
+let sugItems = [], sugIdx = -1;
+
+function highlight(text, q) {
+  const i = text.toLowerCase().indexOf(q);
+  if (!q || i < 0) return esc(text);
+  return esc(text.slice(0, i)) + "<mark>" + esc(text.slice(i, i + q.length)) + "</mark>" + esc(text.slice(i + q.length));
+}
+
+function openSuggest() {
+  const raw = input.value.trim(), q = raw.toLowerCase();
+  if (!q) return closeSuggest();
+  const cats = CATEGORIES.filter(c => c.label.toLowerCase().includes(q)).slice(0, 2)
+    .map(c => ({ type: "cat", id: c.id, label: c.label, img: c.cover, sub: "Category" }));
+  const nameHit = p => p.name.toLowerCase().includes(q) ? 0 : 1;
+  const prods = PRODUCTS.filter(p => matches(p, q)).sort((a, b) => nameHit(a) - nameHit(b)).slice(0, 6)
+    .map(p => ({ type: "prod", id: p.id, label: p.name, img: p.imgs[0], sub: `in ${catById[p.cat].label}` }));
+  sugItems = [...cats, ...prods];
+  sugIdx = -1;
+  sug.innerHTML = sugItems.length
+    ? sugItems.map((s, i) => `<li role="option" id="sug-${i}" data-i="${i}" aria-selected="false"><img src="${s.img}" alt=""><span><b>${highlight(s.label, q)}</b><small>${esc(s.sub)}</small></span></li>`).join("")
+      + `<li class="sug-all" data-all>See all results for “${esc(raw)}”</li>`
+    : `<li class="sug-empty">No matches for “${esc(raw)}”. Press Enter to search anyway, or ask us on WhatsApp.</li>`;
+  sug.hidden = false;
+  input.setAttribute("aria-expanded", "true");
+}
+
+function closeSuggest() {
+  sug.hidden = true;
+  sugIdx = -1;
+  input.setAttribute("aria-expanded", "false");
+  input.removeAttribute("aria-activedescendant");
+}
+
+function moveSuggest(dir) {
+  if (sug.hidden || !sugItems.length) return;
+  // -1 means "back in the search box"; wraps around at both ends
+  const n = sugItems.length + 1;
+  sugIdx = ((sugIdx + 1 + dir + n) % n) - 1;
+  $$("li[data-i]", sug).forEach((li, i) => li.setAttribute("aria-selected", i === sugIdx));
+  if (sugIdx >= 0) input.setAttribute("aria-activedescendant", `sug-${sugIdx}`);
+  else input.removeAttribute("aria-activedescendant");
+}
+
+function pickSuggest(s) {
+  closeSuggest();
+  input.blur();
+  if (s.type === "cat") {
+    input.value = "";
+    state.q = "";
+    setCategory(s.id, true);
+  } else {
+    openQuickView(s.id, input);
+  }
+}
+
+function runSearch() {
+  state.q = input.value.trim().toLowerCase();
+  state.cat = "all";
+  closeSuggest();
+  input.blur();
+  renderGrid();
+  scrollToCatalogue();
+}
+
+let sugTimer;
+input.addEventListener("input", () => { clearTimeout(sugTimer); sugTimer = setTimeout(openSuggest, 120); });
+input.addEventListener("focus", () => { if (input.value.trim()) openSuggest(); });
+input.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown") { e.preventDefault(); moveSuggest(1); }
+  if (e.key === "ArrowUp") { e.preventDefault(); moveSuggest(-1); }
+  if (e.key === "Enter" && sugIdx >= 0) { e.preventDefault(); pickSuggest(sugItems[sugIdx]); }
+});
+input.addEventListener("search", () => { if (!input.value) { closeSuggest(); if (state.q) { state.q = ""; renderGrid(); } } });
+$("#searchForm").addEventListener("submit", e => { e.preventDefault(); runSearch(); });
+sug.addEventListener("pointerdown", e => e.preventDefault());
+sug.addEventListener("click", e => {
+  const li = e.target.closest("li");
+  if (!li) return;
+  if (li.dataset.all !== undefined) runSearch();
+  else if (li.dataset.i !== undefined) pickSuggest(sugItems[+li.dataset.i]);
+});
+input.addEventListener("blur", () => setTimeout(closeSuggest, 100));
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) {
+    e.preventDefault();
+    input.focus();
+  }
+});
 
 /* ---------- enquiry list ---------- */
+let cart = {};
+try { cart = JSON.parse(localStorage.getItem("enquiry") || "{}"); } catch { cart = {}; }
+for (const id in cart) if (!byId[id]) delete cart[id];
+
 function saveCart() {
   try { localStorage.setItem("enquiry", JSON.stringify(cart)); } catch {}
   renderCart();
 }
 
-let lastCount = -1;
-function renderCart() {
-  const ids = Object.keys(cart);
-  const packs = ids.reduce((s, id) => s + cart[id], 0);
-  $("#cartCount").textContent = ids.length;
-  $("#pillCount").textContent = ids.length;
+// The product photo arcs up and drops into the enquiry button.
+function flyToList(source) {
+  const target = isMobile() ? $("#navCart") : $("#openDrawer");
+  const img = source?.closest(".card, .qv-panel")?.querySelector(".card-media img, #qvImg");
+  if (reduceMotion || !img || !target) return bump(isMobile() ? $("#navCount") : $("#cartCount"));
+  const a = img.getBoundingClientRect(), b = target.getBoundingClientRect();
+  const size = 64;
+  const dot = document.createElement("img");
+  dot.src = img.currentSrc || img.src;
+  dot.className = "fly";
+  Object.assign(dot.style, { left: `${a.left + a.width / 2 - size / 2}px`, top: `${a.top + a.height / 2 - size / 2}px`, width: `${size}px`, height: `${size}px` });
+  document.body.append(dot);
+  const dx = b.left + b.width / 2 - (a.left + a.width / 2);
+  const dy = b.top + b.height / 2 - (a.top + a.height / 2);
+  dot.animate([
+    { transform: "translate(0, 0) scale(.6)", opacity: 0 },
+    { transform: "translate(0, -10px) scale(1)", opacity: 1, offset: .15 },
+    { transform: `translate(${dx * .55}px, ${Math.min(dy, 0) * .55 - 90}px) scale(.75)`, offset: .55 },
+    { transform: `translate(${dx}px, ${dy}px) scale(.2)`, opacity: .6 },
+  ], { duration: 850, easing: "cubic-bezier(.45, 0, .25, 1)", fill: "forwards" }).onfinish = () => {
+    dot.remove();
+    bump(isMobile() ? $("#navCart") : $("#cartCount"));
+  };
+  // browsers pause animations in background tabs; never leave the photo behind
+  setTimeout(() => dot.remove(), 1000);
+}
 
-  const pill = $("#enquiryPill");
-  if (ids.length && lastCount === 0 && motion) {
-    pill.hidden = false;
-    gsap.fromTo(pill, { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "back.out(1.6)" });
-  } else {
-    pill.hidden = ids.length === 0;
-  }
-  lastCount = ids.length;
+function addToCart(id, qty, source) {
+  cart[id] = qty;
+  saveCart();
+  toast(`Added to list · ${byId[id].name}`);
+  flyToList(source);
+}
 
+function syncAddButtons() {
   $$("[data-add]").forEach(btn => {
     const inCart = !!cart[btn.dataset.add];
     btn.classList.toggle("added", inCart);
     btn.textContent = inCart ? "✓ Added" : "+ Add";
   });
+}
 
-  $("#drawerList").innerHTML = ids.map(id => {
+function renderCart() {
+  const ids = Object.keys(cart);
+  const estimate = ids.reduce((s, id) => s + (byId[id].price || 0) * unitsIn(byId[id]) * cart[id], 0);
+  $("#cartCount").textContent = ids.length;
+  $("#navCount").textContent = ids.length;
+  $("#navCount").hidden = ids.length === 0;
+  $("#drawerCount").textContent = ids.length ? `(${ids.length})` : "";
+  syncAddButtons();
+
+  $("#drawerList").innerHTML = ids.map((id, i) => {
     const p = byId[id];
-    return `<li>
-      <img src="${p.img}" alt="">
-      <div><strong>${p.name}</strong><small>${p.pack}</small></div>
-      <div class="qty" aria-label="Packs of ${p.name}">
+    return `<li style="--i:${i}">
+      <img src="${p.imgs[0]}" alt="">
+      <div><strong>${esc(p.name)}</strong><small>${p.price ? `${inr(p.price * unitsIn(p))} / ${orderUnit(p)} · ${esc(p.pack)}` : esc(p.pack)}</small></div>
+      <div class="qty" aria-label="Quantity of ${esc(p.name)}">
         <button data-dec="${id}" aria-label="Fewer">−</button>
         <span>${cart[id]}</span>
         <button data-inc="${id}" aria-label="More">+</button>
@@ -358,7 +579,9 @@ function renderCart() {
     </li>`;
   }).join("");
   $("#drawerEmpty").hidden = ids.length > 0;
-  $("#drawerTotal").textContent = ids.length ? `${ids.length} ${ids.length === 1 ? "item" : "items"} · ${packs} ${packs === 1 ? "pack" : "packs"}` : "";
+  $("#drawerTotal").textContent = ids.length ? `Estimated total · ${plural(ids.length, "item")}` : "";
+  $("#drawerEst").textContent = ids.length ? inr(estimate) : "";
+  $("#drawerNote").hidden = ids.length === 0;
   $("#sendEnquiry").disabled = ids.length === 0;
 }
 
@@ -379,324 +602,149 @@ $("#sendEnquiry").addEventListener("click", () => {
   window.open(waLink(msg), "_blank", "noopener");
 });
 $("#clearList").addEventListener("click", () => { cart = {}; saveCart(); });
-$("#drawerBrowse").addEventListener("click", () => { closeDrawer(); scrollToEl($("#catalogue")); });
+$("#drawerBrowse").addEventListener("click", () => { closeDrawer(); scrollToCatalogue(); });
 
 const drawer = $("#drawer"), scrim = $("#scrim");
-if (hasGSAP) gsap.set(drawer, { xPercent: 105 });
 let lastFocus = null;
 function openDrawer() {
   lastFocus = document.activeElement;
+  renderCart();
   scrim.hidden = false;
+  drawer.classList.add("open");
   drawer.setAttribute("aria-hidden", "false");
-  lockScroll(true);
-  if (motion) {
-    gsap.fromTo(scrim, { opacity: 0 }, { opacity: 1, duration: 0.3 });
-    gsap.set(drawer, { visibility: "visible" });
-    gsap.fromTo(drawer, { xPercent: 105 }, { xPercent: 0, duration: 0.55, ease: "expo.out" });
-    gsap.from("#drawerList li", { x: 40, opacity: 0, stagger: 0.05, duration: 0.45, delay: 0.15, ease: "power3.out" });
-  } else {
-    drawer.style.visibility = "visible";
-    drawer.style.transform = "none";
-  }
+  document.body.classList.add("lock");
   $("#closeDrawer").focus();
 }
 function closeDrawer() {
-  if (scrim.hidden) return;
+  if (!drawer.classList.contains("open")) return;
+  scrim.hidden = true;
+  drawer.classList.remove("open");
   drawer.setAttribute("aria-hidden", "true");
-  lockScroll(false);
-  const done = () => { scrim.hidden = true; drawer.style.visibility = "hidden"; };
-  if (motion) {
-    gsap.to(scrim, { opacity: 0, duration: 0.25 });
-    gsap.to(drawer, { xPercent: 105, duration: 0.35, ease: "power3.in", onComplete: done });
-  } else {
-    drawer.style.transform = "";
-    done();
-  }
+  document.body.classList.remove("lock");
   lastFocus?.focus?.();
 }
 $("#openDrawer").addEventListener("click", openDrawer);
-$("#enquiryPill").addEventListener("click", openDrawer);
+$("#navCart").addEventListener("click", openDrawer);
 $("#closeDrawer").addEventListener("click", closeDrawer);
 scrim.addEventListener("click", closeDrawer);
 
-/* ---------- quick view ---------- */
+/* ---------- product view ---------- */
 const qv = $("#qv");
 let qvId = null, qvQty = 1, qvOpener = null;
+function showImage(src) {
+  const img = $("#qvImg");
+  img.src = src;
+  img.style.animation = "none";
+  void img.offsetWidth;
+  img.style.animation = "";
+  $$("#qvThumbs button").forEach(b => b.setAttribute("aria-current", b.dataset.src === src));
+}
 function openQuickView(id, opener) {
-  const p = byId[id], c = catById[p.cat];
+  const p = byId[id];
   qvId = id; qvQty = cart[id] || 1; qvOpener = opener;
-  $("#qvImg").src = p.img;
   $("#qvImg").alt = p.name;
-  $("#qvCat").textContent = c.label;
-  $("#qvCat").style.color = c.color;
+  $("#qvThumbs").innerHTML = p.imgs.length > 1
+    ? p.imgs.map((src, i) => `<button data-src="${src}" aria-label="Photo ${i + 1}"><img src="${src}" alt=""></button>`).join("")
+    : "";
+  showImage(p.imgs[0]);
+  $("#qvCat").textContent = catById[p.cat].label;
   $("#qvTitle").textContent = p.name;
   $("#qvDesc").textContent = p.desc;
-  $("#qvPack").textContent = p.pack;
+  $("#qvPrice").innerHTML = priceHTML(p);
+  $("#qvPack").textContent = unitsIn(p) > 1 ? `${p.pack} · ${inr(p.price * unitsIn(p))} per ${orderUnit(p)}` : p.pack;
+  $(".qv-qty > span").textContent = `Quantity (${plural(2, orderUnit(p) || "pack").slice(2)})`;
   $("#qvAsk").dataset.wa = `Hi! Please share the wholesale price and stock for: ${p.name} (${p.pack}).`;
   updateQvQty();
   qv.hidden = false;
-  lockScroll(true);
-  if (motion) {
-    gsap.fromTo(qv, { opacity: 0 }, { opacity: 1, duration: 0.25 });
-    gsap.fromTo("#qvPanel", { y: 60, scale: 0.92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.4)" });
-    gsap.fromTo("#qvImg", { scale: 1.25 }, { scale: 1, duration: 1, ease: "expo.out" });
-    gsap.from(".qv-info > *", { y: 20, opacity: 0, stagger: 0.05, duration: 0.45, delay: 0.15, ease: "power3.out" });
-  }
+  document.body.classList.add("lock");
   $("#qvClose").focus();
 }
 function closeQuickView() {
   if (qv.hidden) return;
-  lockScroll(false);
-  const done = () => { qv.hidden = true; };
-  if (motion) {
-    gsap.to("#qvPanel", { y: 30, scale: 0.96, opacity: 0, duration: 0.22, ease: "power2.in" });
-    gsap.to(qv, { opacity: 0, duration: 0.25, onComplete: done });
-  } else done();
+  qv.hidden = true;
+  if (!drawer.classList.contains("open")) document.body.classList.remove("lock");
   qvOpener?.focus?.();
 }
 function updateQvQty() {
   $("#qvQty").textContent = qvQty;
-  $("#qvAdd").textContent = cart[qvId] ? `Update to ${qvQty} ${qvQty === 1 ? "pack" : "packs"}` : `Add ${qvQty} ${qvQty === 1 ? "pack" : "packs"} to enquiry`;
+  const p = byId[qvId], what = plural(qvQty, orderUnit(p) || "pack");
+  const total = p.price ? ` · ${inr(p.price * unitsIn(p) * qvQty)}` : "";
+  $("#qvAdd").textContent = cart[qvId] ? `Update list (${what})${total}` : `Add ${what}${total}`;
 }
+$("#qvThumbs").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (b) showImage(b.dataset.src);
+});
 $("#qvInc").addEventListener("click", () => { qvQty++; updateQvQty(); });
 $("#qvDec").addEventListener("click", () => { qvQty = Math.max(1, qvQty - 1); updateQvQty(); });
 $("#qvAdd").addEventListener("click", () => {
-  const img = $("#qvImg");
-  addToCart(qvId, qvQty, img);
+  const src = $("#qvImg");
+  const rect = src.getBoundingClientRect();
   closeQuickView();
+  // fly from where the photo was, since the panel is now closed
+  const ghost = document.createElement("div");
+  ghost.className = "card";
+  ghost.innerHTML = `<span class="card-media"><img src="${src.src}"></span>`;
+  Object.assign(ghost.style, { position: "fixed", left: `${rect.left}px`, top: `${rect.top}px`, width: `${rect.width}px`, height: `${rect.height}px`, opacity: 0, pointerEvents: "none" });
+  document.body.append(ghost);
+  addToCart(qvId, qvQty, ghost.firstElementChild);
+  setTimeout(() => ghost.remove(), 50);
 });
 $("#qvClose").addEventListener("click", closeQuickView);
 qv.addEventListener("click", e => { if (e.target === qv) closeQuickView(); });
 
 document.addEventListener("keydown", e => {
   if (e.key !== "Escape") return;
+  closeSuggest();
   closeQuickView();
   closeDrawer();
 });
 
-/* ---------- nav ---------- */
-const nav = $("#nav"), menuBtn = $("#menuBtn"), navLinks = $("#navLinks");
-addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 10), { passive: true });
-menuBtn.addEventListener("click", () => {
-  const open = navLinks.classList.toggle("open");
-  menuBtn.setAttribute("aria-expanded", open);
-});
-navLinks.addEventListener("click", e => {
-  if (e.target.closest("a")) { navLinks.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
-});
+/* ---------- header & reveals ---------- */
+const header = $("#header");
+addEventListener("scroll", () => header.classList.toggle("scrolled", scrollY > 8), { passive: true });
+
+if ("IntersectionObserver" in window && !reduceMotion) {
+  const io = new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+  }), { threshold: 0.06 });
+  $$(".reveal").forEach(el => io.observe(el));
+} else {
+  $$(".reveal").forEach(el => el.classList.add("in"));
+}
 
 /* ---------- initial render ---------- */
 renderCart();
-applyFilter(false);
-requestAnimationFrame(() => moveChipPill(false));
+renderGrid();
 
-/* =========================================================
-   MOTION
-   ========================================================= */
-function splitWords(el) {
-  el.innerHTML = el.textContent.trim().split(/\s+/)
-    .map(w => `<span class="line" style="display:inline-block"><span class="line-inner">${w}</span></span>`)
-    .join(" ");
-  return $$(".line-inner", el);
+/* ---------- intro: the bag opens the curtains, then the hero animates in ---------- */
+const intro = $("#intro");
+function finishIntro(fast) {
+  if (!intro.isConnected) return;
+  root.classList.add("ready");
+  if (fast) {
+    intro.classList.add("leaving");
+    setTimeout(() => intro.remove(), 350);
+  } else {
+    intro.remove();
+  }
 }
-
-if (!motion) {
-  $("#preloader").style.display = "none";
-  if (!hasGSAP) {
-    const io = new IntersectionObserver(entries => entries.forEach(en => {
-      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
-    }), { threshold: 0.12 });
-    $$(".reveal").forEach(el => io.observe(el));
-    addEventListener("scroll", () => {
-      const max = document.documentElement.scrollHeight - innerHeight;
-      $("#progress").style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
-    }, { passive: true });
-  }
+if (root.classList.contains("no-intro")) {
+  intro.remove();
+  requestAnimationFrame(() => root.classList.add("ready"));
 } else {
-  /* intro */
-  const intro = gsap.timeline();
-  intro
-    .to("#plBar", { width: "100%", duration: 0.9, ease: "power2.inOut" })
-    .to(".pl-inner", { y: -24, opacity: 0, duration: 0.35, ease: "power2.in" })
-    .to("#preloader", { yPercent: -100, duration: 0.85, ease: "expo.inOut" })
-    .set("#preloader", { display: "none" })
-    .from(".hero-title .line-inner", { yPercent: 115, rotate: 5, duration: 1.1, stagger: 0.12, ease: "expo.out" }, "-=0.4")
-    .from(".hero-in", { y: 28, opacity: 0, stagger: 0.1, duration: 0.8, ease: "power3.out" }, "-=0.8")
-    .from(".float-card", { scale: 0.4, opacity: 0, y: 100, rotation: i => [-25, 20, 15, -18][i], stagger: 0.1, duration: 1.2, ease: "back.out(1.5)" }, "-=1.1")
-    .from("#sticker", { scale: 0, rotation: -200, duration: 0.9, ease: "back.out(2)" }, "-=0.6")
-    .from(".sparkle", { scale: 0, stagger: 0.1, duration: 0.5, ease: "back.out(3)" }, "-=0.5")
-    .call(setupHeroScroll);
-
-  function setupHeroScroll() {
-    gsap.to("#sticker", { rotation: 12, scale: 1.06, repeat: -1, yoyo: true, duration: 1.8, ease: "sine.inOut" });
-    if (calm) return;
-    gsap.to(".float-card", {
-      y: (i, el) => -160 * parseFloat(el.dataset.depth),
-      rotation: i => [-10, 8, 12, -14][i],
-      ease: "none",
-      scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true },
-    });
-    gsap.to("#heroCopy", { y: 120, opacity: 0.2, ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true } });
-  }
-
-  /* hero: pointer parallax on the floating cards */
-  if (finePointer) {
-    const inners = $$(".float-inner");
-    $("#hero").addEventListener("pointermove", e => {
-      const x = e.clientX / innerWidth - 0.5, y = e.clientY / innerHeight - 0.5;
-      inners.forEach((el, i) => {
-        const d = (i + 1) * 9;
-        el.style.translate = `${x * d}px ${y * d}px`;
-      });
-    });
-    inners.forEach(el => { el.style.transition = "translate .9s cubic-bezier(.2,.8,.2,1)"; });
-  }
-
-  /* hero: rotating word */
-  const words = ["sells out", "kids love", "makes gifts", "fills shelves"];
-  let wi = 0;
-  const word = $("#swapWord");
-  setInterval(() => {
-    if (document.hidden) return;
-    gsap.timeline()
-      .to(word, { yPercent: -110, opacity: 0, duration: 0.35, ease: "power2.in" })
-      .call(() => { wi = (wi + 1) % words.length; word.textContent = words[wi]; })
-      .fromTo(word, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.6, ease: "back.out(1.7)", clearProps: "transform" });
-  }, 2800);
-
-  /* scroll progress */
-  gsap.to("#progress", { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: 0.3 } });
-
-  /* perks strip */
-  gsap.from(".perks ul", { y: 40, opacity: 0, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: ".perks", start: "top 92%" } });
-  gsap.from(".perk", { y: 20, opacity: 0, stagger: 0.1, duration: 0.6, delay: 0.2, ease: "power3.out", scrollTrigger: { trigger: ".perks", start: "top 92%" } });
-  ScrollTrigger.create({ trigger: ".perks", start: "top 92%", once: true, onEnter: () => $(".perks").classList.add("in") });
-
-  /* generic reveals */
-  $$(".reveal").forEach(el => {
-    gsap.from(el, { y: 50, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%" } });
-  });
-
-  /* headings: word-by-word mask */
-  $$(".section-head h2, .split-head, .visit-card h2").forEach(h => {
-    const parts = splitWords(h);
-    gsap.from(parts, { yPercent: 115, duration: 0.9, stagger: 0.06, ease: "expo.out", scrollTrigger: { trigger: h, start: "top 85%" } });
-  });
-
-  /* stats count up */
-  $$("[data-count]").forEach(el => {
-    gsap.from(el, { textContent: 0, duration: 1.8, ease: "power2.out", snap: { textContent: 1 }, scrollTrigger: { trigger: el, start: "top 90%" } });
-  });
-
-  /* bestsellers */
-  gsap.from(".f-card", {
-    y: 120, opacity: 0, rotation: i => (i % 2 ? 5 : -5), stagger: 0.08, duration: 1, ease: "power3.out",
-    scrollTrigger: { trigger: "#featured", start: "top 75%" },
-  });
-  const mm = gsap.matchMedia();
-  mm.add("(min-width: 901px)", () => {
-    const track = $("#featuredTrack");
-    const viewport = track.parentElement;
-    const dist = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
-    const tween = gsap.to(track, {
-      x: () => -dist(),
-      ease: "none",
-      scrollTrigger: {
-        trigger: "#featuredPin", start: `top ${NAV_H}`, end: () => `+=${dist()}`,
-        pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1,
-        onUpdate: self => gsap.set("#featuredBar", { scaleX: self.progress }),
-      },
-    });
-    if (!calm) $$(".f-media img").forEach(img => {
-      gsap.fromTo(img, { xPercent: -6 }, {
-        xPercent: 6, ease: "none",
-        scrollTrigger: { trigger: img.closest(".f-card"), containerAnimation: tween, start: "left right", end: "right left", scrub: true },
-      });
-    });
-  });
-
-  /* categories: clip-path wipe */
-  gsap.from(".cat", {
-    clipPath: "inset(100% 0% 0% 0% round 22px)", y: 60, stagger: 0.07, duration: 1.1, ease: "expo.out",
-    scrollTrigger: { trigger: "#catGrid", start: "top 82%" },
-  });
-  if (!calm) $$(".cat img").forEach(img => {
-    gsap.fromTo(img, { yPercent: -6, scale: 1.15 }, { yPercent: 6, ease: "none", scrollTrigger: { trigger: "#catGrid", start: "top bottom", end: "bottom top", scrub: true } });
-  });
-
-  /* catalogue cards: batched stagger */
-  gsap.set("#productGrid .card", { opacity: 0, y: 60 });
-  ScrollTrigger.batch("#productGrid .card", {
-    start: "top 92%", once: true,
-    onEnter: batch => gsap.to(batch, { opacity: 1, y: 0, stagger: 0.08, duration: 0.8, ease: "power3.out", overwrite: true }),
-  });
-  ScrollTrigger.create({
-    trigger: "#toolbar", start: `top ${NAV_H + 9}`, endTrigger: "#catalogue", end: "bottom top",
-    toggleClass: { targets: "#toolbar", className: "stuck" },
-  });
-
-  /* steps: line draws as you scroll */
-  gsap.to("#stepsLine", { scaleX: 1, ease: "none", scrollTrigger: { trigger: ".steps-wrap", start: "top 75%", end: "bottom 65%", scrub: true } });
-  gsap.from(".step", { y: 80, opacity: 0, stagger: 0.15, duration: 0.9, ease: "power3.out", scrollTrigger: { trigger: ".steps", start: "top 82%" } });
-  gsap.from(".step-num", { scale: 0, rotation: -120, stagger: 0.15, duration: 0.8, delay: 0.2, ease: "back.out(2)", scrollTrigger: { trigger: ".steps", start: "top 82%" } });
-
-  /* visit collage parallax */
-  if (!calm) $$(".visit-collage img").forEach(img => {
-    gsap.to(img, { y: parseFloat(img.dataset.speed), ease: "none", scrollTrigger: { trigger: ".visit-card", start: "top bottom", end: "bottom top", scrub: true } });
-  });
-
-  /* footer word */
-  const big = $(".footer-big");
-  big.innerHTML = [...big.textContent].map(ch => `<span style="display:inline-block">${ch === " " ? "&nbsp;" : ch}</span>`).join("");
-  gsap.from(big.children, { yPercent: 100, opacity: 0, rotation: 10, stagger: 0.04, duration: 0.9, ease: "back.out(1.6)", scrollTrigger: { trigger: big, start: "top 95%" } });
-
-  /* active nav link */
-  $$(".nav-links a").forEach(a => {
-    const sec = $(a.getAttribute("href"));
-    if (!sec) return;
-    ScrollTrigger.create({
-      trigger: sec, start: "top center", end: "bottom center",
-      onToggle: self => { if (self.isActive) { $$(".nav-links a").forEach(x => x.classList.toggle("active", x === a)); } },
-    });
-  });
-
-  /* pointer-only niceties */
-  if (finePointer) {
-    $$(".magnetic").forEach(el => {
-      el.addEventListener("pointermove", e => {
-        const r = el.getBoundingClientRect();
-        gsap.to(el, { x: (e.clientX - r.left - r.width / 2) * 0.3, y: (e.clientY - r.top - r.height / 2) * 0.35, duration: 0.4, ease: "power3.out" });
-      });
-      el.addEventListener("pointerleave", () => gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: "elastic.out(1, .35)" }));
-    });
-
-    $$("#productGrid .card").forEach(card => {
-      card.addEventListener("pointermove", e => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-        gsap.to(card, { rotationY: x * 10, rotationX: -y * 10, y: -6, transformPerspective: 900, duration: 0.4, ease: "power2.out" });
-      });
-      card.addEventListener("pointerleave", () => gsap.to(card, { rotationY: 0, rotationX: 0, y: 0, duration: 0.7, ease: "elastic.out(1, .5)" }));
-    });
-
-    const cursor = $("#cursor"), label = $("#cursorLabel");
-    document.documentElement.classList.add("has-cursor");
-    const cx = gsap.quickTo(cursor, "x", { duration: 0.35, ease: "power3.out" });
-    const cy = gsap.quickTo(cursor, "y", { duration: 0.35, ease: "power3.out" });
-    addEventListener("pointermove", e => { cx(e.clientX); cy(e.clientY); });
-    document.addEventListener("pointerover", e => {
-      const t = e.target;
-      const labelled = t.closest("[data-cursor], .card-media, .f-media, .cat");
-      const link = t.closest("a, button, input");
-      let text = "";
-      if (labelled) text = labelled.dataset.cursor || (labelled.classList.contains("cat") ? "Open" : "View");
-      label.textContent = text;
-      cursor.classList.toggle("is-hover", !!text);
-      cursor.classList.toggle("is-link", !text && !!link);
-    });
-    document.addEventListener("pointerleave", () => gsap.to(cursor, { opacity: 0 }));
-    document.addEventListener("pointerenter", () => gsap.to(cursor, { opacity: 1 }));
-  }
-
-  addEventListener("load", () => ScrollTrigger.refresh());
+  try { sessionStorage.setItem("introSeen", "1"); } catch {}
+  document.body.classList.add("lock");
+  const introTimers = [
+    setTimeout(() => root.classList.add("ready"), 2600),
+    setTimeout(() => { document.body.classList.remove("lock"); finishIntro(false); }, 3350),
+  ];
+  // tap anywhere (or press a key) to skip
+  const skip = () => {
+    introTimers.forEach(clearTimeout);
+    document.body.classList.remove("lock");
+    finishIntro(true);
+  };
+  intro.addEventListener("click", skip);
+  addEventListener("keydown", e => { if (intro.isConnected && (e.key === "Escape" || e.key === "Enter" || e.key === " ")) skip(); });
 }

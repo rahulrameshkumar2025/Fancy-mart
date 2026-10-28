@@ -3,266 +3,336 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Buymo · Wholesale Gifts &amp; Accessories</title>
-  <meta name="description" content="Wholesale keychains, kawaii toys, hair clips, earrings, LED candles, bottles &amp; flasks, Christmas décor, lamps &amp; lights, kitchen and car accessories. Bulk packs, enquire on WhatsApp.">
-  <script>document.documentElement.classList.add("js");</script>
+  <title>Buymo · Wholesale Gifts, Toys &amp; Accessories</title>
+  <meta name="description" content="Wholesale keychains, toys, hair clips, bottles &amp; flasks, lamps, Christmas décor, kitchen and car accessories at wholesale prices. Enquire on WhatsApp.">
+  <meta name="theme-color" content="#faf8f5">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=8">
+  <script>
+    // Play the intro once per visit, and never for people who prefer less motion.
+    try {
+      if (sessionStorage.getItem("introSeen") || matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("no-intro");
+    } catch (e) {}
+  </script>
 </head>
 <body>
 
-  <!-- Intro loader -->
-  <div class="preloader" id="preloader" aria-hidden="true">
-    <div class="pl-inner">
-      <span class="pl-mark">✦</span>
-      <span class="pl-name" data-store="name">Buymo</span>
-      <span class="pl-bar"><i id="plBar"></i></span>
+  <!-- Intro: the Buymo bag opens the curtains -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="curtain left"></div>
+    <div class="curtain right"></div>
+    <div class="valance"></div>
+    <div class="stage">
+      <div class="bubble">Welcome to <b>Buymo</b>!</div>
+      <div class="goodies"><span>🧸</span><span>🎁</span><span>🪔</span><span>✨</span><span>🎀</span></div>
+      <svg class="mascot" viewBox="0 0 120 130">
+        <ellipse class="m-shadow" cx="60" cy="124" rx="34" ry="5" fill="#000" opacity=".25"/>
+        <g class="m-body">
+          <path class="m-handle" d="M38 40V30a22 22 0 0 1 44 0v10" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+          <rect x="10" y="36" width="100" height="82" rx="20" fill="#FF6A3D"/>
+          <rect x="10" y="36" width="100" height="16" rx="8" fill="#ff8a63"/>
+          <g class="m-eyes" fill="#1F1D3D">
+            <ellipse cx="43" cy="72" rx="6" ry="8"/>
+            <ellipse cx="77" cy="72" rx="6" ry="8"/>
+          </g>
+          <circle cx="45" cy="69" r="2" fill="#fff"/>
+          <circle cx="79" cy="69" r="2" fill="#fff"/>
+          <ellipse cx="32" cy="86" rx="7" ry="4" fill="#ffb199"/>
+          <ellipse cx="88" cy="86" rx="7" ry="4" fill="#ffb199"/>
+          <path d="M50 88q10 10 20 0" fill="none" stroke="#1F1D3D" stroke-width="4" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <p class="intro-name">Buymo<small>Wholesale Store</small></p>
+    </div>
+    <button class="intro-skip" id="introSkip">Skip</button>
+  </div>
+
+  <!-- Announcement bar -->
+  <div class="announce" aria-label="Announcements">
+    <div class="announce-track" id="announce">
+      <span>🪔 <b>Deepavali offers coming soon</b> · stock up early for the festive rush</span>
+      <span>🎁 <b>Big discounts</b> on festive décor, lamps &amp; gifts</span>
+      <span>🏷️ <b>Wholesale prices</b> on every product · better prices on bigger orders</span>
+      <span>🚚 <b>Pickup or dispatch</b> · order on WhatsApp in one tap</span>
+      <span>✨ <b>New stock every week</b> · lamps, bottles &amp; Christmas décor just landed</span>
     </div>
   </div>
 
-  <div class="progress" id="progress" aria-hidden="true"></div>
-  <div class="cursor" id="cursor" aria-hidden="true"><span id="cursorLabel"></span></div>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-in">
+      <a href="#top" class="logo" aria-label="Buymo home">
+        <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M13 13v-2.5a7 7 0 0 1 14 0V13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <rect x="5" y="12" width="30" height="25" rx="6" fill="#FF6A3D"/>
+          <path d="M15.5 17.5v12" stroke="#1F1D3D" stroke-width="3.4" stroke-linecap="round"/>
+          <circle cx="21" cy="25" r="4.8" fill="none" stroke="#1F1D3D" stroke-width="3.4"/>
+        </svg>
+        <span class="logo-text"><b>Buymo</b><small>Wholesale Store</small></span>
+      </a>
 
-  <!-- Navigation -->
-  <header class="nav" id="nav">
-    <a href="#top" class="logo" aria-label="Home">
-      <span class="logo-mark">✦</span>
-      <span class="logo-text" data-store="name">Buymo</span>
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="#featured">Bestsellers</a>
-      <a href="#categories">Categories</a>
-      <a href="#catalogue">Catalogue</a>
-      <a href="#how">How to order</a>
-      <a href="#visit">Visit us</a>
-    </nav>
-    <div class="nav-actions">
-      <button class="enquiry-btn magnetic" id="openDrawer" aria-label="Open enquiry list">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
-        <span class="hide-sm">Enquiry</span>
-        <span class="badge" id="cartCount" aria-live="polite">0</span>
-      </button>
-      <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
-        <span></span><span></span>
-      </button>
+      <form class="search" id="searchForm" role="search" autocomplete="off">
+        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="search" placeholder="Search keychains, flasks, lamps…" aria-label="Search products" aria-autocomplete="list" aria-controls="suggest" aria-expanded="false">
+        <kbd class="search-kbd" aria-hidden="true">/</kbd>
+        <ul class="suggest" id="suggest" role="listbox" hidden></ul>
+      </form>
+
+      <div class="header-actions">
+        <button class="h-cart" id="openDrawer" aria-label="Open enquiry list">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
+          <span class="hide-sm">Enquiry list</span>
+          <span class="badge" id="cartCount" aria-live="polite">0</span>
+        </button>
+      </div>
     </div>
   </header>
 
   <main id="top">
-    <!-- Hero -->
+    <!-- Hero with offers -->
     <section class="hero" id="hero">
-      <div class="blob b1"></div>
-      <div class="blob b2"></div>
-      <div class="blob b3"></div>
+      <div class="blob b1" aria-hidden="true"></div>
+      <div class="blob b2" aria-hidden="true"></div>
 
-      <div class="hero-copy" id="heroCopy">
-        <p class="eyebrow hero-in">Wholesale · Bulk packs · Fast dispatch</p>
+      <div class="hero-copy">
+        <p class="kicker">Wholesale prices for retailers &amp; gift shops</p>
         <h1 class="hero-title">
-          <span class="line"><span class="line-inner">Cute stuff that</span></span>
-          <span class="line"><span class="line-inner"><span class="swap"><span id="swapWord">sells out</span></span></span></span>
-          <span class="line"><span class="line-inner">in every shop.</span></span>
+          <span class="ln"><span>Cute stuff that</span></span>
+          <span class="ln"><span class="rotator" id="rotator" aria-live="polite"><span class="rot-word is-in">sells out</span></span></span>
+          <span class="ln"><span>in every shop.</span></span>
         </h1>
-        <p class="lead hero-in">Character keychains, kawaii toys, hair clips, earrings, LED candles, bottles &amp; flasks, Christmas décor, lamps &amp; lights, kitchen and car accessories, all stocked in bulk for retailers and gift shops.</p>
-        <div class="cta-row hero-in">
-          <a href="#catalogue" class="btn btn-primary magnetic" data-cursor="Shop">Browse catalogue</a>
-          <a href="#" class="btn btn-ghost magnetic" data-wa="Hi! I'd like the latest wholesale price list." data-cursor="Chat">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></svg>
-            Get price list
+        <p class="lead">Keychains, toys, bottles, lamps and festive décor at wholesale prices. Pick what you need and order on WhatsApp.</p>
+        <div class="hero-actions">
+          <a href="#catalogue" class="btn btn-primary">Browse products
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
+          <a href="#" class="btn btn-ghost" data-wa="Hi! I'd like the latest wholesale price list.">Get price list</a>
         </div>
-        <a href="#featured" class="scroll-cue hero-in" aria-label="Scroll to bestsellers">
-          <span class="mouse"><i></i></span> Scroll to explore
-        </a>
       </div>
 
-      <div class="hero-stage" id="heroStage" aria-hidden="true">
-        <div class="float-card fc1" data-depth="1.6"><div class="float-inner"><img src="images/keychain-unicorn.jpg" alt=""></div></div>
-        <div class="float-card fc2" data-depth="0.9"><div class="float-inner"><img src="images/toy-kitty-figure.jpg" alt=""></div></div>
-        <div class="float-card fc3" data-depth="1.3"><div class="float-inner"><img src="images/keychain-panda.jpg" alt=""></div></div>
-        <div class="float-card fc4" data-depth="2.1"><div class="float-inner"><img src="images/hair-peacock.jpg" alt=""></div></div>
-        <span class="sparkle s1">✦</span>
-        <span class="sparkle s2">✦</span>
-        <span class="sparkle s3">✧</span>
-        <span class="sticker" id="sticker">Bulk<br>deals!</span>
+      <div class="showcase" id="showcase" aria-roledescription="carousel" aria-label="Current offers">
+        <div class="sc-back sc-back-1" aria-hidden="true"></div>
+        <div class="sc-back sc-back-2" aria-hidden="true"></div>
+        <div class="sc-frame" id="slides"></div>
+        <div class="sc-controls">
+          <button class="sc-btn" id="scPrev" aria-label="Previous offer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+          <div class="sc-bar" id="scBar"></div>
+          <button class="sc-btn" id="scNext" aria-label="Next offer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        </div>
       </div>
     </section>
 
     <!-- Why order from us -->
-    <section class="perks" aria-label="Why order from us">
-      <ul>
-        <li class="perk">
-          <span class="perk-icon" style="--c: var(--pink)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span>
-          <div><strong>Bulk packs</strong><span>24, 48 &amp; 50 pcs lots</span></div>
-        </li>
-        <li class="perk">
-          <span class="perk-icon" style="--c: var(--lilac)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9-9-9Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg></span>
-          <div><strong>Wholesale prices</strong><span>Better rates on more packs</span></div>
-        </li>
-        <li class="perk">
-          <span class="perk-icon" style="--c: var(--wa)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5.1A8 8 0 1 1 21 12Z"/></svg></span>
-          <div><strong>Order on WhatsApp</strong><span>Quick replies, no sign-up</span></div>
-        </li>
-        <li class="perk">
-          <span class="perk-icon" style="--c: var(--sky)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg></span>
-          <div><strong>Pickup or dispatch</strong><span>Collect in store or we ship</span></div>
-        </li>
-      </ul>
-    </section>
-
-    <!-- Stats -->
-    <section class="stats" aria-label="At a glance">
-      <div class="stat reveal"><b data-count="10">10</b><span>product ranges</span></div>
-      <div class="stat reveal"><b data-count="38">38</b><span>bestselling lines</span></div>
-      <div class="stat reveal"><b data-count="50">50</b><span>pcs per keychain pack</span></div>
-      <div class="stat reveal"><b data-count="48">48</b><span>pcs per clip tray</span></div>
-    </section>
-
-    <!-- Bestsellers: pinned horizontal scroll -->
-    <section class="featured" id="featured">
-      <div class="featured-pin" id="featuredPin">
-        <div class="featured-intro">
-          <p class="eyebrow">Bestsellers</p>
-          <h2 class="split-head">Flying off our shelves this week</h2>
-          <p class="sub">Shop owners keep re-ordering these. Add a few packs to your list.</p>
-          <div class="featured-progress" aria-hidden="true"><i id="featuredBar"></i></div>
-        </div>
-        <div class="featured-viewport">
-          <div class="featured-track" id="featuredTrack"></div>
-        </div>
+    <section class="ticker" aria-label="Why order from us">
+      <div class="ticker-track" id="ticker">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5V8Z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg><b>Bulk packs</b> trays, boxes &amp; cartons</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9-9-9Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg><b>Wholesale prices</b> lower per piece on bigger orders</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5.1A8 8 0 1 1 21 12Z"/></svg><b>Order on WhatsApp</b> no sign-up, quick replies</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><b>Pickup or dispatch</b> collect in store or we ship</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg><b>New stock</b> every week</span>
       </div>
     </section>
 
-    <!-- Categories -->
-    <section class="section" id="categories">
-      <div class="section-head reveal">
-        <p class="eyebrow">Shop by range</p>
-        <h2>What's on our shelves</h2>
+    <!-- Bestsellers -->
+    <section class="block reveal" id="bestsellers">
+      <div class="block-head">
+        <div>
+          <h2 class="sec-title">Bestsellers</h2>
+          <p>Shop owners re-order these every week</p>
+        </div>
+        <div class="row-nav">
+          <button class="row-btn" data-row="bestRow" data-dir="-1" aria-label="Scroll left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+          <button class="row-btn" data-row="bestRow" data-dir="1" aria-label="Scroll right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        </div>
       </div>
-      <div class="cat-grid" id="catGrid"></div>
+      <div class="row" id="bestRow"></div>
+    </section>
+
+    <!-- New arrivals -->
+    <section class="block reveal" id="new">
+      <div class="block-head">
+        <div>
+          <h2 class="sec-title">New arrivals</h2>
+          <p>Fresh stock for the festive season · <button class="link-btn" id="viewNew">See all</button></p>
+        </div>
+        <div class="row-nav">
+          <button class="row-btn" data-row="newRow" data-dir="-1" aria-label="Scroll left"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+          <button class="row-btn" data-row="newRow" data-dir="1" aria-label="Scroll right"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <div class="row" id="newRow"></div>
     </section>
 
     <!-- Catalogue -->
-    <section class="section section-tint" id="catalogue">
-      <div class="section-head reveal">
-        <p class="eyebrow">Catalogue</p>
-        <h2>Pick your packs</h2>
-        <p class="sub">Tap <b>+ Add</b> on anything you like, then send the whole list to us on WhatsApp for prices and stock.</p>
-      </div>
-
-      <div class="toolbar" id="toolbar">
-        <div class="chips" id="chips" role="tablist" aria-label="Filter by category"></div>
-        <div class="toolbar-right">
-          <span class="result-count" id="resultCount" aria-live="polite"></span>
-          <label class="search">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-            <input type="search" id="search" placeholder="Search panda, clips, candle…" aria-label="Search products">
-          </label>
+    <section class="block catalogue reveal" id="catalogue">
+      <div class="block-head">
+        <div>
+          <h2 class="sec-title" id="resultsTitle">All products</h2>
+          <p><span id="resultCount" aria-live="polite"></span></p>
         </div>
       </div>
 
-      <div class="product-grid" id="productGrid"></div>
+      <div class="toolbar" id="toolbar">
+        <div class="chips" id="chips" aria-label="Filter by category"></div>
+        <label class="sort">
+          <span class="hide-sm">Sort</span>
+          <select id="sort" aria-label="Sort products">
+            <option value="popular">Popular</option>
+            <option value="new">New arrivals</option>
+            <option value="deal">Biggest discount</option>
+            <option value="low">Price: low to high</option>
+            <option value="high">Price: high to low</option>
+            <option value="az">Name: A to Z</option>
+            <option value="za">Name: Z to A</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="search-note" id="searchNote" hidden>
+        <span>Results for <b id="searchTerm"></b></span>
+        <button class="link-btn" id="clearSearch">Clear search</button>
+      </div>
+      <div class="grid" id="grid"></div>
       <div class="empty" id="empty" hidden>
-        <p>Nothing matches that yet. Ask us on WhatsApp, we probably have it in the shop!</p>
-        <button class="btn btn-ghost" id="resetFilters">Show everything</button>
+        <h3>No products found</h3>
+        <p>We stock far more than we list here. Ask us and we'll check the shop for you.</p>
+        <div class="empty-actions">
+          <button class="btn btn-ghost" id="resetFilters">Show all products</button>
+          <a href="#" class="btn btn-wa" id="askMissing" data-wa="Hi! Do you have this item?">Ask on WhatsApp</a>
+        </div>
       </div>
     </section>
 
     <!-- How to order -->
-    <section class="section" id="how">
-      <div class="section-head reveal">
-        <p class="eyebrow">Simple ordering</p>
-        <h2>Three steps to a full shelf</h2>
-      </div>
-      <div class="steps-wrap">
-        <div class="steps-line" aria-hidden="true"><i id="stepsLine"></i></div>
-        <ol class="steps">
-          <li class="step">
-            <span class="step-num">1</span>
-            <h3>Pick your items</h3>
-            <p>Add the packs you want to your enquiry list and choose how many of each.</p>
-          </li>
-          <li class="step">
-            <span class="step-num">2</span>
-            <h3>Send on WhatsApp</h3>
-            <p>One tap sends the full list to us. We reply with wholesale prices and live stock.</p>
-          </li>
-          <li class="step">
-            <span class="step-num">3</span>
-            <h3>Pick up or ship</h3>
-            <p>Collect from the shop or we pack and dispatch to you.</p>
-          </li>
-        </ol>
-      </div>
+    <section class="block how reveal" id="how">
+      <div class="block-head"><div><h2 class="sec-title">How to order</h2><p>No account, no online payment</p></div></div>
+      <ol class="steps">
+        <li><span>1</span><h3>Add items to your list</h3><p>Pick products and choose how many packs of each.</p></li>
+        <li><span>2</span><h3>Send it on WhatsApp</h3><p>One tap sends the full list. We reply with prices and stock.</p></li>
+        <li><span>3</span><h3>Pick up or get it shipped</h3><p>Collect from the shop, or we pack and dispatch to you.</p></li>
+      </ol>
     </section>
 
     <!-- Visit -->
-    <section class="section visit" id="visit">
-      <div class="visit-card reveal">
-        <div>
-          <p class="eyebrow">Visit the shop</p>
-          <h2>Come see everything in person</h2>
-          <p class="sub">There's far more in store than we can photograph, and new designs arrive every week.</p>
-          <dl class="info">
-            <div><dt>Address</dt><dd data-store="address">Shop address goes here</dd></div>
-            <div><dt>Hours</dt><dd data-store="hours">Mon–Sat · 10:00 AM – 9:00 PM</dd></div>
-            <div><dt>Phone</dt><dd><a data-store="phone" href="tel:+916382707034">+91 63827 07034</a></dd></div>
-          </dl>
-          <a href="#" class="btn btn-primary magnetic" data-wa="Hi! I'd like to visit the shop. Can you share the location?">Chat on WhatsApp</a>
+    <section class="block visit reveal" id="visit">
+      <div class="visit-info">
+        <h2 class="sec-title">Visit us</h2>
+        <p>There's far more in store than we can photograph, and new stock arrives every week.</p>
+        <dl class="info">
+          <div data-store-row="address"><dt>Address</dt><dd data-store="address"></dd></div>
+          <div><dt>Hours</dt><dd data-store="hours">Mon–Sat · 10:00 AM – 9:00 PM</dd></div>
+          <div><dt>Phone</dt><dd><a data-store="phone" href="tel:+916382707034">+91 63827 07034</a></dd></div>
+        </dl>
+        <div class="visit-actions">
+          <a href="#" class="btn btn-wa" data-wa="Hi! I'd like to visit the shop. Can you share the location?">Chat on WhatsApp</a>
+          <a class="btn btn-ghost" data-store="phone" href="tel:+916382707034">Call us</a>
         </div>
-        <div class="visit-collage" aria-hidden="true">
-          <img src="images/earrings-display.jpg" alt="" data-speed="-30">
-          <img src="images/hair-anmor.jpg" alt="" data-speed="40">
-          <img src="images/decor-lotus-candle.jpg" alt="" data-speed="-60">
-        </div>
+      </div>
+      <div class="visit-photos" aria-hidden="true">
+        <img src="images/earrings-display.jpg" alt="" loading="lazy">
+        <img src="images/keychain-glossy-pets.jpg" alt="" loading="lazy">
+        <img src="images/hair-claw-mix.jpg" alt="" loading="lazy">
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p class="footer-big" data-store="name">Buymo</p>
-    <p>Wholesale gifts, toys &amp; accessories</p>
-    <p class="muted">Product photos are of actual stock. Designs and colours vary by batch.</p>
+    <div class="footer-in">
+      <div class="footer-brand">
+        <a href="#top" class="logo" aria-label="Buymo home">
+          <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+            <path d="M13 13v-2.5a7 7 0 0 1 14 0V13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <rect x="5" y="12" width="30" height="25" rx="6" fill="#FF6A3D"/>
+            <path d="M15.5 17.5v12" stroke="#1F1D3D" stroke-width="3.4" stroke-linecap="round"/>
+            <circle cx="21" cy="25" r="4.8" fill="none" stroke="#1F1D3D" stroke-width="3.4"/>
+          </svg>
+          <span class="logo-text"><b>Buymo</b><small>Wholesale Store</small></span>
+        </a>
+        <p>Wholesale gifts, toys, home and festive products for retailers and gift shops.</p>
+      </div>
+      <div>
+        <h3>Categories</h3>
+        <ul id="footerCats"></ul>
+      </div>
+      <div>
+        <h3>Help</h3>
+        <ul>
+          <li><a href="#how">How to order</a></li>
+          <li><a href="#visit">Visit us</a></li>
+          <li><a href="#" data-wa="Hi! I'd like the latest wholesale price list.">Get price list</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li><a data-store="phone" href="tel:+916382707034">+91 63827 07034</a></li>
+          <li><a href="#" data-wa="Hi! I have a wholesale enquiry.">WhatsApp us</a></li>
+          <li data-store="hours">Mon–Sat · 10:00 AM – 9:00 PM</li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer-word" aria-hidden="true">Buymo</p>
+    <p class="footer-note">© <span id="year"></span> Buymo · Photos are of actual stock. Designs and colours vary by batch.</p>
   </footer>
 
-  <!-- Floating actions -->
-  <button class="enquiry-pill" id="enquiryPill" hidden>
-    <span>Send enquiry</span><b id="pillCount">0</b>
-  </button>
+  <!-- Desktop WhatsApp button -->
   <a href="#" class="wa-float" data-wa="Hi! I have a wholesale enquiry." aria-label="Chat on WhatsApp">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></svg>
   </a>
+
+  <!-- Mobile bottom navigation -->
+  <nav class="bottom-nav" aria-label="Quick actions">
+    <a href="#top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9Z"/></svg>Home</a>
+    <a href="#catalogue"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg>Products</a>
+    <a href="#" data-wa="Hi! I have a wholesale enquiry."><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5.1A8 8 0 1 1 21 12Z"/></svg>WhatsApp</a>
+    <button id="navCart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>Enquiry<b class="nav-badge" id="navCount" hidden>0</b></button>
+  </nav>
 
   <!-- Enquiry drawer -->
   <div class="scrim" id="scrim" hidden></div>
   <aside class="drawer" id="drawer" aria-label="Enquiry list" aria-hidden="true">
     <div class="drawer-head">
-      <h3>Your enquiry list</h3>
-      <button class="icon-btn" id="closeDrawer" aria-label="Close">✕</button>
+      <h3>Enquiry list <span id="drawerCount"></span></h3>
+      <button class="icon-btn" id="closeDrawer" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
     </div>
-    <ul class="drawer-list" id="drawerList" data-lenis-prevent></ul>
+    <ul class="drawer-list" id="drawerList"></ul>
     <div class="drawer-empty" id="drawerEmpty">
-      <p>Nothing added yet.</p>
-      <button class="btn btn-ghost" id="drawerBrowse">Browse catalogue</button>
+      <p>Your list is empty.</p>
+      <p class="muted">Add products, then send the whole list to us on WhatsApp for prices.</p>
+      <button class="btn btn-ghost" id="drawerBrowse">Browse products</button>
     </div>
     <div class="drawer-foot">
-      <p class="drawer-total" id="drawerTotal"></p>
-      <button class="btn btn-primary btn-block" id="sendEnquiry" disabled>Send list on WhatsApp</button>
+      <div class="drawer-sum">
+        <p class="drawer-total" id="drawerTotal"></p>
+        <p class="drawer-est" id="drawerEst"></p>
+      </div>
+      <p class="drawer-note" id="drawerNote">Estimate only. We confirm the final price on WhatsApp.</p>
+      <button class="btn btn-wa btn-block" id="sendEnquiry" disabled>Send list on WhatsApp</button>
       <button class="link-btn" id="clearList">Clear list</button>
     </div>
   </aside>
 
-  <!-- Quick view -->
+  <!-- Product view -->
   <div class="qv" id="qv" hidden role="dialog" aria-modal="true" aria-labelledby="qvTitle">
-    <div class="qv-panel" id="qvPanel" data-lenis-prevent>
-      <button class="icon-btn qv-close" id="qvClose" aria-label="Close">✕</button>
-      <div class="qv-media"><img id="qvImg" src="" alt=""></div>
+    <div class="qv-panel" id="qvPanel">
+      <button class="icon-btn qv-close" id="qvClose" aria-label="Close">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <div class="qv-gallery">
+        <div class="qv-main"><img id="qvImg" src="" alt=""></div>
+        <div class="qv-thumbs" id="qvThumbs"></div>
+      </div>
       <div class="qv-info">
-        <span class="card-cat" id="qvCat"></span>
+        <span class="qv-cat" id="qvCat"></span>
         <h3 id="qvTitle"></h3>
+        <div class="price price-lg" id="qvPrice"></div>
+        <span class="qv-pack" id="qvPack"></span>
         <p id="qvDesc"></p>
-        <span class="pack" id="qvPack"></span>
         <div class="qv-qty">
           <span>Packs</span>
           <div class="qty">
@@ -271,21 +341,17 @@
             <button id="qvInc" aria-label="More packs">+</button>
           </div>
         </div>
-        <button class="btn btn-primary btn-block" id="qvAdd">Add to enquiry</button>
-        <a href="#" class="btn btn-ghost btn-block" id="qvAsk">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2Z"/></svg>
-          Ask about this item
-        </a>
+        <div class="qv-actions">
+          <button class="btn btn-primary" id="qvAdd">Add to list</button>
+          <a href="#" class="btn btn-wa" id="qvAsk">Ask on WhatsApp</a>
+        </div>
+        <p class="qv-note">Wholesale price per piece. Even lower prices on bigger orders, confirmed on WhatsApp.</p>
       </div>
     </div>
   </div>
 
   <div class="toast" id="toast" role="status"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>
