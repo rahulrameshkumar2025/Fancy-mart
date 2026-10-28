@@ -259,20 +259,6 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s, transform .8s var(--ease); }
 .reveal.in { opacity: 1; transform: none; }
 
-.row-nav { display: flex; gap: 8px; }
-.row-btn { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line); background: var(--surface); color: var(--brand); transition: border-color .2s, opacity .2s, transform .2s; }
-.row-btn:hover { border-color: var(--brand); }
-.row-btn:active { transform: scale(.92); }
-.row-btn:disabled { opacity: .35; pointer-events: none; }
-.row {
-  display: grid; grid-auto-flow: column; grid-auto-columns: 232px; gap: 18px;
-  overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-  padding: 4px 4px 18px; margin: -4px -4px 0; scrollbar-width: none;
-}
-.row::-webkit-scrollbar { display: none; }
-.row > * { scroll-snap-align: start; }
-.reveal .row .card { opacity: 0; transform: translateY(26px); }
-.reveal.in .row .card { animation: rise .7s var(--ease) both; animation-delay: calc(var(--i, 0) * 70ms + .15s); }
 @keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
 
 /* ---------- Product card ---------- */
@@ -514,8 +500,6 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 
   .block { padding: 36px 14px 4px; }
   .block-head { margin-bottom: 16px; }
-  .row { grid-auto-columns: 46%; gap: 12px; }
-  .row-nav { display: none; }
 
   .toolbar { margin: 0 0 14px; padding: 0; }
   .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }

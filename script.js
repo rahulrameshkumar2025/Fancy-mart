@@ -102,7 +102,6 @@ PRODUCTS.forEach(p => {
   Object.assign(p, { price, mrp, per, off: price && mrp > price ? Math.round((1 - price / mrp) * 100) : 0 });
 });
 
-const BESTSELLERS = ["kc-unicorn", "kc-anime", "toy-kitty", "kc-spidey", "hair-peacock", "bot-smart", "dec-lotus", "hair-claw", "kc-panda", "car-heli"];
 
 /* ---------- setup ---------- */
 const $ = (s, el = document) => el.querySelector(s);
@@ -332,29 +331,6 @@ if (finePointer && !reduceMotion) {
     card.style.setProperty("--my", `${e.clientY - r.top}px`);
   }, { passive: true });
 }
-
-/* ---------- product rows ---------- */
-$("#bestRow").innerHTML = BESTSELLERS.map((id, i) => cardHTML(byId[id], i)).join("");
-$("#newRow").innerHTML = PRODUCTS.filter(p => p.new).map((p, i) => cardHTML(p, i)).join("");
-function updateRowButtons(row) {
-  $$(`.row-btn[data-row="${row.id}"]`).forEach(b => {
-    b.disabled = +b.dataset.dir < 0 ? row.scrollLeft < 8 : row.scrollLeft + row.clientWidth > row.scrollWidth - 8;
-  });
-}
-$$(".row").forEach(row => {
-  row.addEventListener("scroll", () => updateRowButtons(row), { passive: true });
-  updateRowButtons(row);
-});
-$$(".row-btn").forEach(b => b.addEventListener("click", () => {
-  const row = $("#" + b.dataset.row);
-  row.scrollBy({ left: +b.dataset.dir * row.clientWidth * 0.9 });
-}));
-addEventListener("resize", () => $$(".row").forEach(updateRowButtons));
-$("#viewNew").addEventListener("click", () => {
-  state.sort = "new";
-  $("#sort").value = "new";
-  setCategory("all", true);
-});
 
 /* ---------- catalogue: filter, search, sort ---------- */
 const state = { cat: "all", q: "", sort: "popular" };
