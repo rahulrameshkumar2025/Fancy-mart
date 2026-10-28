@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in · Buymo</title>
+  <meta name="description" content="Log in to Buymo with your phone number. Accounts for bulk order customers are coming soon.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#faf8f5">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=16">
+  <script>
+    // Use the saved theme, otherwise follow the device setting.
+    try {
+      var theme = localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme = theme;
+      if (theme === "dark") document.querySelector('meta[name="theme-color"]').content = "#121120";
+    } catch (e) {}
+  </script>
+</head>
+<body class="auth-page">
+
+  <header class="header">
+    <div class="header-in">
+      <a href="index.html" class="logo" aria-label="Buymo home">
+        <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M13 13v-2.5a7 7 0 0 1 14 0V13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <rect x="5" y="12" width="30" height="25" rx="6" fill="#FF6A3D"/>
+          <path d="M15.5 17.5v12" stroke="#1F1D3D" stroke-width="3.4" stroke-linecap="round"/>
+          <circle cx="21" cy="25" r="4.8" fill="none" stroke="#1F1D3D" stroke-width="3.4"/>
+        </svg>
+        <span class="logo-text"><b>Buymo</b><small>Bulk Order Store</small></span>
+      </a>
+      <div class="header-actions">
+        <button class="theme-btn" id="themeBtn" aria-label="Switch to dark mode" aria-pressed="false">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="auth">
+    <!-- Brand side -->
+    <section class="auth-art" aria-hidden="true">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+      <div class="auth-art-in">
+        <p class="kicker">Buymo for retailers</p>
+        <h2>Your shop's bulk orders, <em>all in one place.</em></h2>
+        <ul class="auth-perks">
+          <li><span>✓</span>Save your shop details once</li>
+          <li><span>✓</span>Re-order past enquiries in one tap</li>
+          <li><span>✓</span>First to hear about festive offers</li>
+        </ul>
+        <div class="auth-stack">
+          <img src="images/xmas-snowman.jpg" alt="">
+          <img src="images/keychain-anime.jpg" alt="">
+          <img src="images/flask-smart-black.jpg" alt="">
+        </div>
+      </div>
+    </section>
+
+    <!-- Form side -->
+    <section class="auth-panel">
+      <div class="auth-card">
+        <span class="soon-badge">Coming soon</span>
+        <h1>Log in or sign up</h1>
+        <p class="auth-sub">Use your mobile number. We'll send a one-time code to verify it.</p>
+
+        <form id="phoneForm" class="auth-form" novalidate>
+          <label for="phone">Mobile number</label>
+          <div class="phone-field" id="phoneField">
+            <span class="cc">+91</span>
+            <input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="11" placeholder="98765 43210" aria-describedby="phoneHelp">
+          </div>
+          <p class="field-help" id="phoneHelp" aria-live="polite">10-digit mobile number</p>
+          <button class="btn btn-primary btn-block" id="getOtp" type="submit">Get OTP</button>
+        </form>
+
+        <div class="soon-note" id="soonNote" hidden role="status">
+          <div class="soon-icon">🪔</div>
+          <div>
+            <strong>Accounts are coming soon</strong>
+            <p>We're getting customer accounts ready. Until then, you can send your bulk order list on WhatsApp. No login needed.</p>
+          </div>
+          <div class="soon-actions">
+            <a class="btn btn-wa" href="#" id="waNow">Order on WhatsApp</a>
+            <a class="btn btn-ghost" href="index.html#catalogue">Browse products</a>
+          </div>
+        </div>
+
+        <p class="auth-legal">By continuing, you agree to be contacted by Buymo on this number about your orders.</p>
+      </div>
+      <a class="auth-back" href="index.html">← Back to shop</a>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script src="login.js?v=16"></script>
+</body>
+</html>
