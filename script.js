@@ -144,11 +144,67 @@ function toast(msg) {
   toastTimer = setTimeout(() => t.classList.remove("show"), 1900);
 }
 
-function bump(el) {
-  el.classList.remove("bump");
+function bump(el, cls = "bump") {
+  el.classList.remove(cls);
   void el.offsetWidth;
-  el.classList.add("bump");
+  el.classList.add(cls);
 }
+
+/* ---------- light / dark theme ---------- */
+const themeBtn = $("#themeBtn");
+function syncThemeButton() {
+  const dark = root.dataset.theme === "dark";
+  themeBtn.setAttribute("aria-pressed", dark);
+  themeBtn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+  $('meta[name="theme-color"]').content = dark ? "#121120" : "#faf8f5";
+}
+function applyTheme(theme) {
+  root.dataset.theme = theme;
+  try { localStorage.setItem("theme", theme); } catch {}
+  syncThemeButton();
+}
+// The new theme spreads out in a circle from the button.
+themeBtn.addEventListener("click", () => {
+  const next = root.dataset.theme === "dark" ? "light" : "dark";
+  if (reduceMotion) {
+    root.classList.add("no-trans");
+    applyTheme(next);
+    requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("no-trans")));
+    return;
+  }
+  if (!document.startViewTransition) {
+    // older browsers: flip instantly (the sun/moon icon still turns)
+    root.classList.add("no-trans");
+    applyTheme(next);
+    requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("no-trans")));
+    return;
+  }
+  const r = themeBtn.getBoundingClientRect();
+  const x = r.left + r.width / 2, y = r.top + r.height / 2;
+  const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  // colours must flip instantly underneath the circle, so pause hover/colour transitions
+  root.classList.add("no-trans");
+  const vt = document.startViewTransition(() => applyTheme(next));
+  vt.finished.finally(() => root.classList.remove("no-trans"));
+  // if the browser can't run the transition right now, still switch the theme
+  setTimeout(() => {
+    if (root.dataset.theme !== next) applyTheme(next);
+    setTimeout(() => root.classList.remove("no-trans"), 50);
+  }, 300);
+  vt.ready.then(() => {
+    root.animate(
+      { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+      { duration: 650, easing: "cubic-bezier(.4, 0, .2, 1)", pseudoElement: "::view-transition-new(root)" }
+    );
+  }).catch(() => {});
+});
+// follow the device if the visitor hasn't picked a theme themselves
+matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", e => {
+  let saved = null;
+  try { saved = localStorage.getItem("theme"); } catch {}
+  if (!saved) { root.dataset.theme = e.matches ? "dark" : "light"; syncThemeButton(); }
+});
+syncThemeButton();
 
 /* ---------- store details ---------- */
 $$("[data-store]").forEach(el => {
@@ -497,31 +553,52 @@ function saveCart() {
   renderCart();
 }
 
-// The product photo arcs up and drops into the enquiry button.
+// The product photo is tossed into the enquiry button along a smooth arc.
+// Three layers keep the path smooth: the outer one slides across at a steady pace,
+// the middle one rises and falls like a thrown ball, the image shrinks and fades.
 function flyToList(source) {
   const target = isMobile() ? $("#navCart") : $("#openDrawer");
+  const badge = isMobile() ? $("#navCount") : $("#cartCount");
   const img = source?.closest(".card, .qv-panel")?.querySelector(".card-media img, #qvImg");
-  if (reduceMotion || !img || !target) return bump(isMobile() ? $("#navCount") : $("#cartCount"));
+  if (reduceMotion || !img || !target) return bump(badge);
   const a = img.getBoundingClientRect(), b = target.getBoundingClientRect();
-  const size = 64;
-  const dot = document.createElement("img");
-  dot.src = img.currentSrc || img.src;
-  dot.className = "fly";
-  Object.assign(dot.style, { left: `${a.left + a.width / 2 - size / 2}px`, top: `${a.top + a.height / 2 - size / 2}px`, width: `${size}px`, height: `${size}px` });
-  document.body.append(dot);
-  const dx = b.left + b.width / 2 - (a.left + a.width / 2);
-  const dy = b.top + b.height / 2 - (a.top + a.height / 2);
-  dot.animate([
-    { transform: "translate(0, 0) scale(.6)", opacity: 0 },
-    { transform: "translate(0, -10px) scale(1)", opacity: 1, offset: .15 },
-    { transform: `translate(${dx * .55}px, ${Math.min(dy, 0) * .55 - 90}px) scale(.75)`, offset: .55 },
-    { transform: `translate(${dx}px, ${dy}px) scale(.2)`, opacity: .6 },
-  ], { duration: 850, easing: "cubic-bezier(.45, 0, .25, 1)", fill: "forwards" }).onfinish = () => {
-    dot.remove();
-    bump(isMobile() ? $("#navCart") : $("#cartCount"));
-  };
+  const size = 60;
+  const x0 = a.left + a.width / 2 - size / 2, y0 = a.top + a.height / 2 - size / 2;
+  const dx = b.left + b.width / 2 - size / 2 - x0;
+  const dy = b.top + b.height / 2 - size / 2 - y0;
+  const peak = Math.min(0, dy) - Math.min(140, 60 + Math.abs(dx) * .15);
+
+  const outer = document.createElement("div");
+  outer.className = "fly";
+  Object.assign(outer.style, { left: `${x0}px`, top: `${y0}px`, width: `${size}px`, height: `${size}px` });
+  const mid = document.createElement("div");
+  mid.style.cssText = "width:100%;height:100%;will-change:transform";
+  const pic = document.createElement("img");
+  pic.src = img.currentSrc || img.src;
+  pic.alt = "";
+  mid.append(pic);
+  outer.append(mid);
+  document.body.append(outer);
+
+  const done = () => { outer.remove(); bump(badge); bump(target, "catch"); };
+  requestAnimationFrame(() => {
+    const ms = 780;
+    outer.animate([{ transform: "translateX(0)" }, { transform: `translateX(${dx}px)` }],
+      { duration: ms, easing: "cubic-bezier(.35, 0, .65, 1)", fill: "forwards" });
+    mid.animate([
+      { transform: "translateY(0)", easing: "cubic-bezier(.2, .7, .4, 1)" },
+      { transform: `translateY(${peak}px)`, offset: .42, easing: "cubic-bezier(.6, 0, .8, .4)" },
+      { transform: `translateY(${dy}px)` },
+    ], { duration: ms, fill: "forwards" });
+    pic.animate([
+      { transform: "scale(.5)", opacity: 0 },
+      { transform: "scale(1.05)", opacity: 1, offset: .14 },
+      { transform: "scale(.85)", opacity: 1, offset: .6 },
+      { transform: "scale(.28)", opacity: .85 },
+    ], { duration: ms, easing: "ease-out", fill: "forwards" }).onfinish = done;
+  });
   // browsers pause animations in background tabs; never leave the photo behind
-  setTimeout(() => dot.remove(), 1000);
+  setTimeout(() => outer.isConnected && outer.remove(), 1400);
 }
 
 function addToCart(id, qty, source) {
