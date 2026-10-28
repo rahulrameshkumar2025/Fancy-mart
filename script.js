@@ -4,7 +4,7 @@
    Leave it empty and WhatsApp will ask which chat to send to.
    ========================================================= */
 const STORE = {
-  name: "Fancy Mart",
+  name: "Buymo",
   whatsapp: "916382707034",
   phone: "+91 63827 07034",
   address: "Shop address goes here",
@@ -21,6 +21,7 @@ const CATEGORIES = [
   { id: "car",       label: "Car Care",    color: "#2a1838", cover: "images/car-fragrance.jpg" },
   { id: "bottles",   label: "Bottles & Flasks", color: "#1f6fb2", cover: "images/bottle-printed-mini.jpg" },
   { id: "christmas", label: "Christmas",   color: "#c0262d", cover: "images/xmas-snowman.jpg" },
+  { id: "lights",    label: "Lamps & Lights", color: "#c77b12", cover: "images/light-solar-garden-pole.jpg" },
 ];
 
 const PRODUCTS = [
@@ -65,9 +66,15 @@ const PRODUCTS = [
   { id: "xm-fibre",    cat: "christmas", name: "Fibre-Optic Tree (MAA 290 M)",  img: "images/xmas-fibre-optic-tree.jpg", pack: "500 pcs carton",                desc: "5.5\" fibre-optic tree with star that glows in changing colours. Gift boxed." },
   { id: "xm-acrylic",  cat: "christmas", name: "Colour-Change Tree 6\" (MAA6340-11)", img: "images/xmas-acrylic-tree.jpg", pack: "240 pcs carton",              desc: "Acrylic Christmas tree with colour-changing LED base. Gift boxed." },
   { id: "xm-acrylic-l",cat: "christmas", name: "Colour-Change Tree 7.5\" (MAA6340-12)", img: "images/xmas-acrylic-tree-large.jpg", pack: "144 pcs carton", tag: "Large", desc: "Larger acrylic Christmas tree with colour-changing LED base. Gift boxed." },
+
+  { id: "lt-garden",   cat: "lights", name: "Solar Garden Pole Light (MG)",     img: "images/light-solar-garden-pole.jpg", pack: "Per piece", tag: "Solar",    desc: "Solar-charged lawn post with pleated pendant lamp and LED side strip. For gardens and pathways." },
+  { id: "lt-crystal",  cat: "lights", name: "Crystal Wall Light (ZTD-30W)",     img: "images/light-crystal-wall.jpg",    pack: "Per piece",                    desc: "30W wall lamp with diamond-cut glass shade and warm glow. For gates, porches and compound walls." },
+  { id: "lt-lantern",  cat: "lights", name: "Lantern Wall Light (MJ-30W)",      img: "images/light-lantern-wall.jpg",    pack: "Per piece",                    desc: "30W lantern-style wall lamp with filament-look bulb and black metal frame." },
+  { id: "lt-hanging",  cat: "lights", name: "Hanging LED Lantern (YDD)",        img: "images/light-hanging-lantern.jpg", pack: "Per piece",   tag: "3 modes",  desc: "Pleated-shade lantern with hook. Full, half and flash modes for camping, balconies and décor." },
+  { id: "lt-table",    cat: "lights", name: "Pleated Table Lamp (YD-CK01)",     img: "images/light-pleated-table-lamp.jpg", pack: "Per piece",                 desc: "Bedside lamp with pleated metal shade and soft warm light." },
 ];
 
-const FEATURED = ["xm-snowman", "kc-unicorn", "bot-smart-bk", "kc-anime", "toy-kitty", "xm-star", "hair-peacock", "kc-spidey", "dec-lotus", "bot-rope", "car-heli", "kc-panda"];
+const FEATURED = ["xm-snowman", "kc-unicorn", "bot-smart-bk", "lt-garden", "kc-anime", "toy-kitty", "xm-star", "hair-peacock", "kc-spidey", "dec-lotus", "bot-rope", "car-heli", "kc-panda"];
 
 /* ---------- setup ---------- */
 const $ = (s, el = document) => el.querySelector(s);
