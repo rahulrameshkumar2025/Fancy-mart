@@ -229,10 +229,14 @@ document.addEventListener("click", e => {
     setCategory(go.dataset.catGo, true);
     return;
   }
+  const step = e.target.closest("[data-step]");
+  if (step) {
+    changeQty(step.dataset.id, +step.dataset.step);
+    return;
+  }
   const add = e.target.closest("[data-add]");
   if (add) {
-    if (cart[add.dataset.add]) openDrawer();
-    else addToCart(add.dataset.add, 1, add);
+    addToCart(add.dataset.add, 1, add);
     return;
   }
   const qv = e.target.closest("[data-qv]");
@@ -400,7 +404,14 @@ function cardHTML(p, i = 0) {
       <button class="card-name" data-qv="${p.id}">${esc(p.name)}</button>
       <div class="price card-price">${priceHTML(p)}</div>
       <span class="card-pack">${/^Per /.test(p.pack) ? "" : esc(p.pack)}</span>
-      <button class="add-btn" data-add="${p.id}" aria-label="Add ${esc(p.name)} to list">+ Add</button>
+      <div class="card-act" data-act="${p.id}">
+        <button class="add-btn" data-add="${p.id}" aria-label="Add ${esc(p.name)} to list">+ Add</button>
+        <div class="stepper" role="group" aria-label="Quantity of ${esc(p.name)}">
+          <button data-step="-1" data-id="${p.id}" aria-label="One less">−</button>
+          <span aria-live="polite">1</span>
+          <button data-step="1" data-id="${p.id}" aria-label="One more">+</button>
+        </div>
+      </div>
     </div>
   </article>`;
 }
@@ -633,11 +644,24 @@ function addToCart(id, qty, source) {
 }
 
 function syncAddButtons() {
-  $$("[data-add]").forEach(btn => {
-    const inCart = !!cart[btn.dataset.add];
-    btn.classList.toggle("added", inCart);
-    btn.textContent = inCart ? "✓ Added" : "+ Add";
+  $$(".card-act").forEach(act => {
+    const qty = cart[act.dataset.act] || 0;
+    act.classList.toggle("in-cart", qty > 0);
+    $(".stepper span", act).textContent = qty;
   });
+}
+
+// + / − on a product card or in the list; going below 1 removes the item
+function changeQty(id, delta) {
+  const qty = (cart[id] || 0) + delta;
+  if (qty <= 0) removeFromCart(id);
+  else { cart[id] = qty; saveCart(); }
+}
+function removeFromCart(id) {
+  if (!cart[id]) return;
+  delete cart[id];
+  saveCart();
+  toast(`Removed from list · ${byId[id].name}`);
 }
 
 function renderCart() {
@@ -659,6 +683,7 @@ function renderCart() {
         <span>${cart[id]}</span>
         <button data-inc="${id}" aria-label="More">+</button>
       </div>
+      <button class="remove-btn" data-remove="${id}" aria-label="Remove ${esc(p.name)} from list" title="Remove"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button>
     </li>`;
   }).join("");
   $("#drawerEmpty").hidden = ids.length > 0;
@@ -671,12 +696,15 @@ function renderCart() {
 $("#drawerList").addEventListener("click", e => {
   const inc = e.target.closest("[data-inc]");
   const dec = e.target.closest("[data-dec]");
-  if (inc) cart[inc.dataset.inc]++;
-  if (dec) {
-    const id = dec.dataset.dec;
-    if (--cart[id] <= 0) delete cart[id];
+  const remove = e.target.closest("[data-remove]");
+  if (inc) changeQty(inc.dataset.inc, 1);
+  if (dec) changeQty(dec.dataset.dec, -1);
+  if (remove) {
+    // slide the row out, then drop it
+    const li = remove.closest("li");
+    li.classList.add("removing");
+    setTimeout(() => removeFromCart(remove.dataset.remove), reduceMotion ? 0 : 260);
   }
-  if (inc || dec) saveCart();
 });
 
 $("#sendEnquiry").addEventListener("click", () => {

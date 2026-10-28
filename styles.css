@@ -823,3 +823,35 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .auth-card { padding: 26px 20px 22px; border-radius: 20px; }
   .auth-card h1 { font-size: 22px; }
 }
+
+/* ---------- Card quantity stepper ---------- */
+.card-act { align-self: end; display: grid; }
+.card-act > * { grid-area: 1 / 1; }
+.card-act .add-btn { transition: opacity .2s, scale .25s cubic-bezier(.34, 1.56, .64, 1), background .3s, color .3s; }
+.stepper {
+  display: flex; align-items: center; height: 36px; border-radius: 999px;
+  background: var(--accent); color: var(--on-accent);
+  opacity: 0; scale: .6; pointer-events: none;
+  transition: opacity .2s, scale .3s cubic-bezier(.34, 1.56, .64, 1);
+}
+.stepper button { width: 34px; height: 36px; border-radius: 50%; font-size: 19px; font-weight: 800; color: inherit; transition: background .2s, transform .15s; }
+.stepper button:hover { background: rgba(255, 255, 255, .25); }
+.stepper button:active { transform: scale(.85); }
+.stepper span { min-width: 22px; text-align: center; font-weight: 800; font-size: 14px; }
+.card-act.in-cart .add-btn { opacity: 0; scale: .6; pointer-events: none; }
+.card-act.in-cart .stepper { opacity: 1; scale: 1; pointer-events: auto; }
+
+/* ---------- Remove from list ---------- */
+.drawer-list li { grid-template-columns: 60px 1fr auto auto; transition: opacity .25s, transform .25s; }
+.drawer-list li.removing { opacity: 0; transform: translateX(40px); }
+.remove-btn { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--muted); transition: background .2s, color .2s; }
+.remove-btn svg { width: 18px; height: 18px; }
+.remove-btn:hover { background: rgba(229, 72, 77, .12); color: #e5484d; }
+
+@media (max-width: 760px) {
+  .stepper { height: 34px; }
+  .stepper button { width: 28px; height: 34px; font-size: 17px; }
+  .stepper span { min-width: 16px; font-size: 13px; }
+  .drawer-list li { grid-template-columns: 52px 1fr auto auto; gap: 8px; }
+  .drawer-list img { width: 52px; height: 52px; }
+}
