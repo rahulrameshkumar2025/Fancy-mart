@@ -401,9 +401,9 @@ function cardHTML(p, i = 0) {
     <button class="card-media" data-qv="${p.id}" aria-label="View ${esc(p.name)}">${tag}<img src="${p.imgs[0]}" alt="${esc(p.name)}" loading="lazy">${more}</button>
     <div class="card-body">
       <span class="card-cat">${esc(c.label)}</span>
-      <button class="card-name" data-qv="${p.id}">${esc(p.name)}</button>
+      <button class="card-name" data-qv="${p.id}"><span>${esc(p.name)}</span></button>
       <div class="price card-price">${priceHTML(p)}</div>
-      <span class="card-pack">${/^Per /.test(p.pack) ? "" : esc(p.pack)}</span>
+      <span class="card-pack">${/^Per /.test(p.pack) ? "Sold per piece" : esc(p.pack)}</span>
       <div class="card-act" data-act="${p.id}">
         <button class="add-btn" data-add="${p.id}" aria-label="Add ${esc(p.name)} to list">+ Add</button>
         <div class="stepper" role="group" aria-label="Quantity of ${esc(p.name)}">
@@ -457,7 +457,7 @@ function renderGrid() {
   $("#grid").innerHTML = list.map((p, i) => cardHTML(p, i)).join("");
   $("#empty").hidden = list.length > 0;
   $("#resultsTitle").textContent = state.cat === "all" ? "All products" : catById[state.cat].label;
-  $("#resultCount").textContent = `${list.length} ${list.length === 1 ? "product" : "products"} · tap any item for details`;
+  $("#resultCount").textContent = `${list.length} ${list.length === 1 ? "product" : "products"}`;
   $("#searchNote").hidden = !state.q;
   $("#searchTerm").textContent = `“${state.q}”`;
   $("#askMissing").dataset.wa = state.q
@@ -480,7 +480,67 @@ function setCategory(cat, scroll = false) {
   if (chip) chip.parentElement.scrollTo({ left: chip.offsetLeft - 40, behavior: "smooth" });
 }
 
-$("#sort").addEventListener("change", e => { state.sort = e.target.value; renderGrid(); });
+/* ---------- sort menu (styled list; the hidden <select> keeps the value) ---------- */
+const sortSel = $("#sort"), sortBtn = $("#sortBtn"), sortMenu = $("#sortMenu"), sortText = $("#sortText");
+const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>';
+sortMenu.innerHTML = [...sortSel.options].map((o, i) =>
+  `<li role="option" id="sort-${o.value}" data-value="${o.value}" aria-selected="${i === 0}"><span>${esc(o.text)}</span>${CHECK}</li>`
+).join("");
+const sortItems = $$("li", sortMenu);
+let sortActive = 0;
+
+function syncSort() {
+  sortText.textContent = sortSel.selectedOptions[0].text;
+  sortItems.forEach(li => li.setAttribute("aria-selected", li.dataset.value === sortSel.value));
+}
+function highlightSort(i) {
+  sortActive = (i + sortItems.length) % sortItems.length;
+  sortItems.forEach((li, k) => li.classList.toggle("hl", k === sortActive));
+  sortMenu.setAttribute("aria-activedescendant", sortItems[sortActive].id);
+}
+function openSort() {
+  sortMenu.hidden = false;
+  sortBtn.setAttribute("aria-expanded", "true");
+  highlightSort(sortItems.findIndex(li => li.dataset.value === sortSel.value));
+  sortMenu.focus({ preventScroll: true });
+}
+function closeSort(focusBtn = true) {
+  if (sortMenu.hidden) return;
+  sortMenu.hidden = true;
+  sortBtn.setAttribute("aria-expanded", "false");
+  if (focusBtn) sortBtn.focus({ preventScroll: true });
+}
+function pickSort(value) {
+  sortSel.value = value;
+  sortSel.dispatchEvent(new Event("change"));
+  closeSort();
+}
+sortSel.addEventListener("change", () => { state.sort = sortSel.value; syncSort(); renderGrid(); });
+sortBtn.addEventListener("click", () => sortMenu.hidden ? openSort() : closeSort());
+sortBtn.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); openSort(); }
+});
+sortMenu.addEventListener("click", e => {
+  const li = e.target.closest("li");
+  if (li) pickSort(li.dataset.value);
+});
+sortMenu.addEventListener("pointermove", e => {
+  const li = e.target.closest("li");
+  if (li) highlightSort(sortItems.indexOf(li));
+});
+sortMenu.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown") { e.preventDefault(); highlightSort(sortActive + 1); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); highlightSort(sortActive - 1); }
+  else if (e.key === "Home") { e.preventDefault(); highlightSort(0); }
+  else if (e.key === "End") { e.preventDefault(); highlightSort(-1); }
+  else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickSort(sortItems[sortActive].dataset.value); }
+  else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeSort(); }
+  else if (e.key === "Tab") closeSort(false);
+});
+document.addEventListener("pointerdown", e => {
+  if (!sortMenu.hidden && !e.target.closest("#sortWrap")) closeSort(false);
+});
+syncSort();
 $("#resetFilters").addEventListener("click", () => {
   state.cat = "all"; state.q = ""; input.value = "";
   renderGrid();
