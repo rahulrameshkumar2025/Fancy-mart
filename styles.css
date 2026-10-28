@@ -233,8 +233,9 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .sc-badge { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--on-accent); background: var(--accent); padding: 5px 10px; border-radius: 999px; }
 .sc-copy h2 { font-size: 24px; font-weight: 800; }
 .sc-copy p { margin: 0; font-size: 13.5px; opacity: .85; }
-.sc-price { display: flex; align-items: baseline; gap: 8px; }
-.sc-price b { font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+.sc-price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+.sc-price span { white-space: nowrap; }
+.sc-price b { font-size: 28px; font-weight: 800; letter-spacing: -.02em; white-space: nowrap; }
 .sc-price b small { font-size: 13px; font-weight: 600; opacity: .7; }
 .sc-price span { font-size: 12px; font-weight: 800; color: var(--on-accent); background: #fff; padding: 3px 8px; border-radius: 999px; }
 .sc-cta { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: #fff; border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
@@ -467,8 +468,12 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1000px) {
-  .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 28px; }
-  .showcase { justify-self: center; width: min(360px, 72vw); margin-right: 30px; }
+  .hero { gap: 32px; padding-top: 28px; }
+  .showcase { width: clamp(240px, 36vw, 340px); margin-right: 26px; }
+  .sc-copy { padding: 16px; gap: 6px; }
+  .sc-copy h2 { font-size: clamp(17px, 2.2vw, 22px); }
+  .sc-copy p { font-size: 12.5px; }
+  .sc-price b { font-size: clamp(20px, 2.6vw, 26px); }
   .footer-in { grid-template-columns: 1fr 1fr; }
 }
 
@@ -486,7 +491,8 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .logo-text b { font-size: 20px; }
   .h-cart { padding: 8px 10px; }
 
-  .hero { padding: 22px 16px 28px; gap: 28px; }
+  .hero { grid-template-columns: 1fr; padding: 22px 16px 28px; gap: 28px; }
+  .showcase { justify-self: center; }
   .hero-title { font-size: 38px; }
   .lead { font-size: 15px; margin: 14px 0 20px; }
   .showcase { width: min(320px, 74vw); margin-right: 24px; }
