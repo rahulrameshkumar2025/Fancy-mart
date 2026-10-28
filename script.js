@@ -76,7 +76,7 @@ const PRODUCTS = [
 ];
 
 /* =========================================================
-   PRICES (DEMO): [wholesale price per piece, MRP per piece] in ₹.
+   PRICES (DEMO): [bulk order price per piece, MRP per piece] in ₹.
    Replace these with your real prices. Offer cards work out
    "From ₹…" and "Up to …% off" from this table automatically.
    ========================================================= */
@@ -121,6 +121,10 @@ const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
 const unitsIn = p => p.per === "pc" ? +((p.pack.match(/(\d+)\s*pcs/) || [])[1] || 1) : 1;
 const orderUnit = p => unitsIn(p) > 1 ? p.pack.split(" ").pop() : p.per;
 const plural = (n, word) => `${n} ${word}${n === 1 ? "" : word.endsWith("x") ? "es" : "s"}`;
+// ", 50 pcs pack" for messages; nothing for single pieces
+const packNote = p => /^Per /.test(p.pack) ? "" : `, ${p.pack.charAt(0).toLowerCase()}${p.pack.slice(1)}`;
+// order unit spelled out for messages ("piece" rather than "pc")
+const unitWord = p => ({ pc: "piece" })[orderUnit(p)] || orderUnit(p) || "pack";
 function priceHTML(p) {
   if (!p.price) return "";
   return `<b>${inr(p.price)}<small>/${p.per}</small></b>${p.off ? `<s>${inr(p.mrp)}</s><em>${p.off}% off</em>` : ""}`;
@@ -365,7 +369,9 @@ function renderGrid() {
   $("#resultCount").textContent = `${list.length} ${list.length === 1 ? "product" : "products"} · tap any item for details`;
   $("#searchNote").hidden = !state.q;
   $("#searchTerm").textContent = `“${state.q}”`;
-  $("#askMissing").dataset.wa = state.q ? `Hi! Do you have ${state.q}?` : "Hi! I'm looking for a product that isn't on the website.";
+  $("#askMissing").dataset.wa = state.q
+    ? `Hi ${STORE.name}! I couldn't find "${state.q}" on your website. Do you have it in stock?`
+    : `Hi ${STORE.name}! I'm looking for a product that isn't on your website.`;
 
   $$(".chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.cat === state.cat));
   syncAddButtons();
@@ -573,8 +579,11 @@ $("#drawerList").addEventListener("click", e => {
 });
 
 $("#sendEnquiry").addEventListener("click", () => {
-  const lines = Object.entries(cart).map(([id, qty], i) => `${i + 1}. ${byId[id].name} (${byId[id].pack}) × ${qty}`);
-  const msg = `Hi ${STORE.name}! I'd like wholesale prices & availability for:\n\n${lines.join("\n")}\n\nThank you!`;
+  const lines = Object.entries(cart).map(([id, qty], i) => {
+    const p = byId[id];
+    return `${i + 1}. ${p.name}${packNote(p)} – Qty: ${plural(qty, unitWord(p))}`;
+  });
+  const msg = `Hi ${STORE.name}! I'd like to place a bulk order. Could you please share the prices and availability of these items?\n\n${lines.join("\n")}\n\nThank you!`;
   window.open(waLink(msg), "_blank", "noopener");
 });
 $("#clearList").addEventListener("click", () => { cart = {}; saveCart(); });
@@ -629,7 +638,7 @@ function openQuickView(id, opener) {
   $("#qvPrice").innerHTML = priceHTML(p);
   $("#qvPack").textContent = unitsIn(p) > 1 ? `${p.pack} · ${inr(p.price * unitsIn(p))} per ${orderUnit(p)}` : p.pack;
   $(".qv-qty > span").textContent = `Quantity (${plural(2, orderUnit(p) || "pack").slice(2)})`;
-  $("#qvAsk").dataset.wa = `Hi! Please share the wholesale price and stock for: ${p.name} (${p.pack}).`;
+  $("#qvAsk").dataset.wa = `Hi ${STORE.name}! Could you please share the bulk order price and stock availability of ${p.name}${packNote(p)}?`;
   updateQvQty();
   qv.hidden = false;
   document.body.classList.add("lock");
